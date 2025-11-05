@@ -18,22 +18,8 @@ git clone git@github.com:jessie-moe/cyber-lab-workflow.git
 cd cyber-lab-workflow
 ```
 
-Try a minimal scenario (example layout — replace with the scenario you want to run):
-```bash
-cd labs/terraform/simple-lab
-tf init
-tf plan
-# review the plan, then:
-tf apply
-# when finished:
-tf destroy
-```
-
 ## Repo layout
 - labs/: infrastructure, global settings, configuration examples, and scripts
-  - labs/terraform/
-  - labs/ansible/
-  - labs/packer/
 - Hardening/: hardening steps, collected logs, configuration changes, analysis and playbooks
 - Docs/: technical information, runbooks, resources, changelogs, and notes
 - .github/: issue & PR templates, workflows, and CI configuration
