@@ -29,14 +29,7 @@ cd cyber-lab-workflow
 ## Safety and isolation
 - Always run labs in isolated networks (host-only networks, private VPCs, or VM-only networks). Avoid connecting lab networks to production or corporate networks.
 - Use ephemeral environments and snapshots to revert changes. Provide teardown scripts for each scenario.
-- Do NOT commit credentials, private keys, or other secrets. Use `.env.example` files and supply secrets at runtime or via CI secrets.
 - If using cloud resources, ensure proper IAM scoping and billing controls.
-
-## Security scanning & CI
-We recommend enabling:
-- Static analysis: linters for YAML, shell, and Terraform (yamllint, shellcheck, terraform fmt/validate)
-- Security scanning: tfsec/checkov for Terraform, CodeQL for code scanning, Dependabot for dependencies
-- Pre-commit hooks to catch accidental secrets and formatting issues
 
 ## Contributing
 See CONTRIBUTING.md for contribution guidelines, testing, and PR expectations.
