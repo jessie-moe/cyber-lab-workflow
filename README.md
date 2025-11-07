@@ -20,11 +20,10 @@ cd cyber-lab-workflow
 
 ## Repo layout
 - README files will beplaced in every directory for additional information
-- VMs (Bastion, Monitor_VM, HOST, attacker_VM etc..). Contain VM specific  logs and configuation change files between labs
-- gloabl: will include global settings / scripts / repo specific settings
+- Bastion, Monitor_VM, HOST, attacker_VM etc..): Contain VM specific  logs and configuation change files between labs
+- gloabl: Will include global settings / scripts / repo specific settings
 - docs: Lab notes, Diagrams, resources, Templates, and Observations
-- tests: testing informoation: specific tests ran/lab with log reports
-- examples/: ready-to-run scenarios and minimal reproducible configurations
+- tests: Testing informoation: specific tests ran/lab with log reports
 - tools: Contains additional links to tools and external applications used for testing and hardening
 - THIS REPO WILL CHANGE OFTEN AND SO WILL THE FOLDER AND STRUCTURE. THIS SECTION WILL UPDATE AS CHANGES ARE MADE
 
