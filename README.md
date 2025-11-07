@@ -10,7 +10,7 @@ Prerequisites:
 - Git
 - Virtualization: VirtualBox, libvirt, or VMware (host machine)
 - Target images / distributions: Debian 13.1 (Trixie), Kali Linux (including Kali Purple)
-- Common tools used in examples: Terraform, Packer, Ansible, Vagrant, Fail2ban, rsyslog, auditd, OpenSSH
+- Common tools used in examples: Fail2ban, rsyslog, auditd, OpenSSH, Lynis, tcpdump, SSHamble, nmap
 
 Clone the repository:
 ```bash
@@ -19,12 +19,14 @@ cd cyber-lab-workflow
 ```
 
 ## Repo layout
-- labs/: infrastructure, global settings, configuration examples, and scripts
-- Hardening/: hardening steps, collected logs, configuration changes, analysis and playbooks
-- Docs/: technical information, runbooks, resources, changelogs, and notes
-- .github/: issue & PR templates, workflows, and CI configuration
+- README files will beplaced in every directory for additional information
+- VMs (Bastion, Monitor_VM, HOST, attacker_VM etc..). Contain VM specific  logs and configuation change files between labs
+- gloabl: will include global settings / scripts / repo specific settings
+- docs: Lab notes, Diagrams, resources, Templates, and Observations
+- tests: testing informoation: specific tests ran/lab with log reports
 - examples/: ready-to-run scenarios and minimal reproducible configurations
-- assets/: diagrams and images (referenced externally or via LFS)
+- tools: Contains additional links to tools and external applications used for testing and hardening
+- THIS REPO WILL CHANGE OFTEN AND SO WILL THE FOLDER AND STRUCTURE. THIS SECTION WILL UPDATE AS CHANGES ARE MADE
 
 ## Safety and isolation
 - Always run labs in isolated networks (host-only networks, private VPCs, or VM-only networks). Avoid connecting lab networks to production or corporate networks.
