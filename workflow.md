@@ -18,7 +18,7 @@ Phases will have sub phases to complete required testing and labs needed to veri
 | Phase | Task | Status | Related Lab |
 |--------|------|---------|--------------|
 | **Initialization** | Created repo structure (`bastion`, `monitor_vm`, `docs`, `tests`, `templates`) | ✅ Completed | — |
-| **Documentation Standardization** | Normalized lab notes for consistency (`lab_001_bastion_build.md`, `lab_001_set_IP_Persistance.md`) | ✅ Completed | LAB 001 |
+| **Documentation Standardization** | Normalized lab notes for consistency (`lab_001_initialization.md`, `lab_002_connectivity_and_ip_persistance.md`) | ✅ Completed | LAB 001 |
 | **Template Development** | Added `/templates` directory with standardized templates and README | ✅ Completed | — |
 | **Bastion Build** | Installed and configured Debian SSH bastion; added `gitops` and `aptusers` users | ✅ Completed | LAB 001 |
 | **Network Configuration** | Established persistent IPs for Bastion (`enp0s3=192.168.0.60`, `enp0s8=192.168.50.2`) | ✅ Completed | LAB 001 |
@@ -72,6 +72,18 @@ git push origin main
 - Update `workflow.md` whenever a new lab or configuration milestone is completed.
 
 ---
+
+## 🧩 Lab Index
+
+| Lab ID | Title | Description | Repo Path | Status |
+|--------|--------|--------------|------------|---------|
+| **LAB 001** | Initialization & Bastion Setup | Create base repo structure, build Debian bastion, add users and baseline tools. | [`/docs/lab_notes/lab_001_initialization.md`](docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
+| **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [`/docs/lab_notes/lab_002_connectivity_and_ip_persistence.md`](docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ✅ Completed |
+| **LAB 003** | Hardening Checklist & Verification | Conduct Lynis baseline audit, review hardening recommendations, prepare scripts for validation. | [`/docs/lab_notes/lab_003_hardening_checklist.md`](docs/lab_notes/lab_003_hardening_checklist.md) | ⚙️ In-Progress |
+| **LAB 004** | SSH Hardening | Disable root login, restrict forwarding, integrate CA trust, and test connection workflow. | *(planned)* | ⏳ Pending |
+| **LAB 005** | Log Forwarding & Monitoring | Forward bastion logs to monitor VM, verify visibility, and baseline log rotation. | *(planned)* | ⏳ Pending |
+| **LAB 006** | Network Ruleset & nftables Baseline | Establish nftables rule templates, verify with audit logs and baseline results. | *(planned)* | ⏳ Pending |
+
 
 ✅ **Maintained by:** Jessie Moe  
 📆 **Last Updated:** 2025-11-06

@@ -19,8 +19,8 @@ The Monitor_VM will also be partitioned and set up to handle SSH CA handling and
 3. Optional visualization tools or scripts can query data for analysis.
 
 ## Related Labs
-- [LAB 003 — Log Forwarding Setup](/docs/lab_notes/lab_003_log_forwarding.md)
-- [LAB 004 — SSH Audit Review](/docs/lab_notes/lab_004_ssh_audit.md)
+- [LAB 002 - Connectivity_and_ip_persitance]
+- [LAB 004 - Establish SSH] (planned)
 
 ## Security
 - Accepts logs only from internal subnet.
