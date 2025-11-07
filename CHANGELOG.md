@@ -15,7 +15,7 @@
 # 🧾 Repository Change Log
 | Date | Author | Change | Validation Log | Notes |
 |------|---------|---------|------------------|------------------|
-| 2025-11-07 | Jessie Moe | Repo Audit Integration Commit 001 | [🔗 View Log](https://github.com/jessie-moe/cyber-lab-workflow/docs/change_logs/repo_audit_integration.md
+| 2025-11-07 | Jessie Moe | Repo Audit Integration Commit 001 | [🔗 View Log](https://github.com/jessie-moe/cyber-lab-workflow/docs/change_logs/repo_audit_integration) | |
 
 ### Planned
 - Configurations for bastion (`fail2ban.local`, `nftables.conf`, `sshd_config`)
