@@ -18,8 +18,8 @@ It enforces SSH policy, logging, and baseline hardening before access to interna
 - The Bastion does **not** retain long-term logs.
 
 ## Related Labs
-- [LAB 001 — Bastion Build](/docs/lab_notes/lab_001_initialization.md)
-- [LAB 002 — Set Static IP](/docs/lab_notes/lab_002_connectivity_and_ip_persistence.md)
+- [LAB 001 — Bastion Build](../docs/lab_notes/lab_001_initialization.md)
+- [LAB 002 — Set Static IP](../docs/lab_notes/lab_002_connectivity_and_ip_persistence.md)
 
 ## Next Steps
 - Implement SSH.
