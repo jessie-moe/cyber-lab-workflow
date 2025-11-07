@@ -24,7 +24,7 @@ This lab installs essential packages, configures foundational users, enables log
 
 ## 3. Prerequisites
 
-- [x] Debian bastion VM deployed  
+- [x] Debian .ISO  
 - [x] Monitor_VM deployed  
 - [x] Static external IP (e.g., `192.168.0.60`)  
 - [x] Static internal IP (e.g., `192.168.50.2`)  
@@ -75,7 +75,7 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 | Lynis Baseline Report | `/bastion/logs/baseline/results/lynis` |
 | SSH Configuration | `/bastion/configs/sshd_config` |
 | Fail2Ban Local Config | `/bastion/configs/fail2ban.local` |
-
+| Ping Logs | Temp location  ~/Documents/pinghost.log & ~/Documents/pingMonitor_VM.log |
 ---
 
 ✅ **Objective Complete**
