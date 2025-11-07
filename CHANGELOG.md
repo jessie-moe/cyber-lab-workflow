@@ -12,6 +12,11 @@
 - Normalized lab metadata and section order
 - Updated `README.md` and `workflow.md` to reflect Phase 1 progress
 
+# 🧾 Repository Change Log
+| Date | Author | Change | Validation Log | Audit Score | Notes |
+|------|---------|---------|----------------|--------------|--------|
+| 2025-11-07 | Jessie Moe | Repo Audit Integration Commit 001 | [🔗 View Log](https://github.com/jessie-moe/cyber-lab-workflow/docs/change_lo>
+
 ### Planned
 - Configurations for bastion (`fail2ban.local`, `nftables.conf`, `sshd_config`)
 - SSH hardening

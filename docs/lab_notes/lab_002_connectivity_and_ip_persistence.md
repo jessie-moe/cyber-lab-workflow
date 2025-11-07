@@ -8,7 +8,7 @@
 | **Date:** | 2025-11-06 |
 | **Author:** | Jessie Moe |
 | **System:** | Debian 13.1 Trixie (bastion VM) |
-| **Host Connection:** | SSH from management host |
+| **Host Connection:** | Physical Access |
 | **Repo Path:** | `/bastion/configs`, `/bastion/scripts`, `/bastion/logs/baseline` |
 | **Lab Type:** | Network Configuration |
 | **Objective:** | Ensure persistent static IP assignments for bastion external and internal interfaces to maintain stable connectivity. |
