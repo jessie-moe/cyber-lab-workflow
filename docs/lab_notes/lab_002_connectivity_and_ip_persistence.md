@@ -1,4 +1,4 @@
-# 🧩 LAB 001 — Static IP and Network Persistence
+# 🧩 LAB 002 — Static IP and Network Persistence
 
 ## 1. Metadata
 
