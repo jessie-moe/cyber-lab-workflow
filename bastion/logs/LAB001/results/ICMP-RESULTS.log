@@ -1,0 +1,7 @@
+--- 192.168.0.60 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4100ms
+rtt min/avg/max/mdev = 0.067/0.089/0.108/0.013 ms
+
+--- 192.168.50.2 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4081ms
+rtt min/avg/max/mdev = 0.048/0.088/0.109/0.021 ms
