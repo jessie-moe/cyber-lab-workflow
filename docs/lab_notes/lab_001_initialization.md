@@ -64,19 +64,20 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 
 - [x] Ping `host` to verify connectivity  
 - [x] Ping `monitor_vm` to verify connectivity  
-- [x] Confirm SSH access to bastion via management host  
 - [x] Run initial Lynis baseline scan
+- [x] Backup Logs / **HASH** all backups to ensure integrity
+- [x] [LAB001-ANALYSIS](…/bastion/logs/LAB001/results.md)` Search parse and filter logs for user activity, network activity, and packages installed.
 
 ---
 
 ## 6. Results and Artifacts
 
-| Artifact | Path |
+| Artifact  | Log Path | Validation Results | 
 |-----------|------|
-| Lynis Baseline Report | `/bastion/logs/baseline/results/lynis` |
-| SSH Configuration | `/bastion/configs/sshd_config` |
+| Lynis Baseline Report | [LynisLog](…/bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) | [LynisData](/home/jessie/Documents/gitHub/cyber-lab-workflow/bastion/logs/LAB001/results/2025-11-08_lynis-report.data.log) |
+| Users: | [User Accounts](…/bastion/logs/archive/raw_untagged/2025-11-08_users.log)  |
 | Fail2Ban Local Config | `/bastion/configs/fail2ban.local` |
-| Ping Logs | Temp location  ~/Documents/pinghost.log & ~/Documents/pingMonitor_VM.log |
+| Ping Logs | [LAB001-RESULTS-ICMP]( | [LAB001-ANALYSIS-ICMP](../../LAB001/results/ICMP-RESULTS.log) |
 ---
 
 ✅ **Objective Complete**
