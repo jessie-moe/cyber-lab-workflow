@@ -21,19 +21,18 @@ Phases will have sub phases to complete required testing and labs needed to veri
 | **Documentation Standardization** | Normalized lab notes for consistency (`lab_001_initialization.md`, `lab_002_connectivity_and_ip_persistance.md`) | ✅ Completed | LAB 001 |
 | **Template Development** | Added `/templates` directory with standardized templates and README | ✅ Completed | — |
 | **Bastion Build** | Installed and configured Debian SSH bastion; added `gitops` and `aptusers` users | ✅ Completed | LAB 001 |
-| **Network Configuration** | Established persistent IPs for Bastion (`enp0s3=192.168.0.60`, `enp0s8=192.168.50.2`) | ✅ Completed | LAB 001 |
 | **Logging Infrastructure** | Installed baseline packages: `fail2ban`, `auditd`, `rsyslog`, `lynis` | ✅ Completed | LAB 001 |
-
+| **Network Configuration** | Established persistent IPs for Bastion (`enp0s3=192.168.0.60`, `enp0s8=192.168.50.2`) | ✅ Completed | LAB001 LAB002 |
 ---
 
 ## 3. In-Progress ⚙️
 
 | Phase | Task | Target | Notes |
 |--------|------|---------|-------|
-| **SSH Configuration** | Harden SSH access, restrict root login, disable TCP forwarding | LAB 002 | Build upon `bastion_build` baseline |
-| **User and Group Policy** | Define least privilege user groups for SSH and admin actions | LAB 002 | Use `gitops` as base role model, assign all user roles|
-| **Baseline Log Retrieval** | Automate remote collection from Bastion to Host via `sshfs` | LAB 003 | Store logs under `/bastion/logs/baseline/results/` |
-| **Monitoring Integration** | Forward logs to `monitor_vm` and verify visibility | LAB 003 | Confirm rsyslog forwarding works |
+| **SSH Configuration** | Harden SSH access, restrict root login, disable TCP forwarding | LAB003 | Build upon `bastion_build` baseline |
+| **User and Group Policy** | Define least privilege user groups for SSH and admin actions | LAB003 | Use `gitops` as base role model, assign all user roles|
+| **Baseline Log Retrieval** | Automate remote collection from Bastion to Host via `sshfs` | LAB 004 | Store logs under `/bastion/logs/baseline/results/` |
+
 
 ---
 
@@ -41,10 +40,10 @@ Phases will have sub phases to complete required testing and labs needed to veri
 
 | Phase | Task | Description | Planned Lab |
 |--------|------|-------------|--------------|
-| **SSH Hardening Audit** | Perform Lynis and manual checks for SSH compliance | LAB 004 | Document findings and improvements |
-| **Automated Script Execution** | Use `/bastion/scripts/` to validate configs and retrieve logs | LAB 004 | Integrate with git hooks if possible |
-| **Fail2Ban Jails & Log Review** | Validate ban triggers and log alerts | LAB 005 | Compare Fail2Ban logs pre/post SSH changes |
+| **Fail2Ban Jails & Log Review** | Validate ban triggers and log alerts | LAB 004 | Compare Fail2Ban logs pre/post SSH changes |
+| **SSH Hardening Audit** | Perform Lynis and manual checks for SSH compliance | LAB 005 | Document findings and improvements |
 | **Network Hardening** | Implement nftables baseline and verify with `lynx` and audit logs | LAB 006 | Define rule set templates under `/bastion/configs` |
+| **Automated Script Execution** | Use `/bastion/scripts/` to validate configs and retrieve logs | LAB 007 | Integrate with git hooks if possible |
 | **Change Logging** | Automate change entry creation for `/docs/change_logs/` | — | Script-driven versioning integration |
 
 ---
