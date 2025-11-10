@@ -77,9 +77,9 @@ git push origin main
 
 | Lab ID | Title | Description | Repo Path | Status |
 |--------|--------|--------------|------------|---------|
-| **LAB 001** | Initialization & Bastion Setup | Create base repo structure, build Debian bastion, add users and baseline tools. | [`/docs/lab_notes/lab_001_initialization.md`](docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
-| **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [`/docs/lab_notes/lab_002_connectivity_and_ip_persistence.md`](./docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ✅ Completed |
-| **LAB 003** | Hardening Checklist & Verification | Conduct Lynis baseline audit, review hardening recommendations, prepare scripts for validation. | [`/docs/lab_notes/lab_003_hardening_checklist.md`](docs/lab_notes/lab_003_hardening_checklist.md) | ⚙️ In-Progress |
+| **LAB 001** | Initialization & Bastion Setup | Build Debian bastion, add users and baseline tools. Lynis Audit | [LAB001](../docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
+| **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [LAB002](../docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ⚙️ In-Progress |
+| **LAB 003** | SSH Hardening Pre Checklist & Verification | Configue SSH users and keys. Verify SSH. Retrieve logs for audit and Validation   | [LAB003](../docs/lab_notes/lab_003_hardening_checklist.md) | ⚙️ In-Progress |
 | **LAB 004** | SSH Hardening | Disable root login, restrict forwarding, integrate CA trust, and test connection workflow. | *(planned)* | ⏳ Pending |
 | **LAB 005** | Log Forwarding & Monitoring | Forward bastion logs to monitor VM, verify visibility, and baseline log rotation. | *(planned)* | ⏳ Pending |
 | **LAB 006** | Network Ruleset & nftables Baseline | Establish nftables rule templates, verify with audit logs and baseline results. | *(planned)* | ⏳ Pending |

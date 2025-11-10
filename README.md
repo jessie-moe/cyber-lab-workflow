@@ -7,7 +7,6 @@ This repository contains reproducible lab infrastructure, hardening playbooks, a
 
 ## Quickstart
 Prerequisites:
-- Git
 - Virtualization: VirtualBox, libvirt, or VMware (host machine)
 - Target images / distributions: Debian 13.1 (Trixie), Kali Linux (including Kali Purple)
 - Common tools used in examples: Fail2ban, rsyslog, auditd, OpenSSH, Lynis, tcpdump, SSHamble, nmap
@@ -19,6 +18,7 @@ cd cyber-lab-workflow
 ```
 
 ## Repo layout
+- [WORKFLOW](cyber-lab-workflow/workflow.md) This is where you will find the Labs, and follow the worklfow. Labs will link to all Audits, Artifacts, Logs, an observations
 - README files will beplaced in every directory for additional information
 - Bastion, Monitor_VM, HOST, attacker_VM etc..): Contain VM specific  logs and configuation change files between labs
 - gloabl: Will include global settings / scripts / repo specific settings
