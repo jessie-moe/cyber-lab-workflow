@@ -76,8 +76,8 @@ git push origin main
 
 | Lab ID | Title | Description | Repo Path | Status |
 |--------|--------|--------------|------------|---------|
-| **LAB 001** | Initialization & Bastion Setup | Build Debian bastion, add users and baseline tools. Lynis Audit | [LAB001](../docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
-| **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [LAB002](../docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ⚙️ In-Progress |
+| **LAB 001** | Initialization & Bastion Setup | Build Debian bastion, add users and baseline tools. Lynis Audit | [LAB001](/docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
+| **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [LAB002](/docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ⚙️ In-Progress |
 | **LAB 003** | SSH Hardening Pre Checklist & Verification | Configue SSH users and keys. Verify SSH. Retrieve logs for audit and Validation   | [LAB003]pending | ⚙️ In-Progress |
 | **LAB 004** | SSH Hardening | Disable root login, restrict forwarding, integrate CA trust, and test connection workflow. | *(planned)* | ⏳ Pending |
 | **LAB 005** | Log Forwarding & Monitoring | Forward bastion logs to monitor VM, verify visibility, and baseline log rotation. | *(planned)* | ⏳ Pending |

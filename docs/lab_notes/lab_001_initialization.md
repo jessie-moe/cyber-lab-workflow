@@ -9,7 +9,7 @@
 | **Author:** | Jessie Moe |
 | **System:** | Debian 13.1 Trixie (bastion VM) |
 | **Host Connection:** | Physical Access |
-| **Diagram** | [Bastion Development](../docs/diagrams/BastionNetworkDiagram.jpg) |
+| **Diagram** | [Bastion Development](../diagrams/BastionNetworkDiagram.jpg) |
 | **Lab Type:** | Initial Configuration / Baseline Lynis |
 | **Objective:** | Establish a minimal Debian SSH bastion, install baseline security packages, and collect initial audit data for later hardening. |
 
