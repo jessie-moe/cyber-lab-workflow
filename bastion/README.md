@@ -13,7 +13,7 @@ It enforces SSH policy, logging, and baseline hardening before access to interna
 | Packages | `fail2ban`, `auditd`, `rsyslog`, `lynis`, `openssh-server` |
 
 ## Log Handling
-- Local logs are stored temporarily under `/home/jessie/Documents /home/Docoments/Backups /home/Documents/Logs`.
+
 - Logs are retrieved by the `gitops` user via SSHFS and stored on the host until proper central management established.
 - The Bastion does **not** retain long-term logs.
 
