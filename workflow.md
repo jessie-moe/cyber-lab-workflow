@@ -18,10 +18,10 @@ Phases will have sub phases to complete required testing and labs needed to veri
 | Phase | Task | Status | Related Lab |
 |--------|------|---------|--------------|
 | **Initialization** | Created repo structure (`bastion`, `monitor_vm`, `docs`, `tests`, `templates`) | ✅ Completed | — |
-| **Documentation Standardization** | Normalized lab notes for consistency (`lab_001_initialization.md`, `lab_002_connectivity_and_ip_persistance.md`) | ✅ Completed | LAB 001 |
+| **Documentation Standardization** | Normalized lab notes for consistency  | ✅ Completed | LAB001 |
 | **Template Development** | Added `/templates` directory with standardized templates and README | ✅ Completed | — |
-| **Bastion Build** | Installed and configured Debian SSH bastion; added `gitops` and `aptusers` users | ✅ Completed | LAB 001 |
-| **Logging Infrastructure** | Installed baseline packages: `fail2ban`, `auditd`, `rsyslog`, `lynis` | ✅ Completed | LAB 001 |
+| **Bastion Build** | Installed and configured Debian SSH bastion; added `gitops` and `aptusers` users | ✅ Completed | LAB001 |
+| **Logging Infrastructure** | Installed baseline packages: `fail2ban`, `auditd`, `rsyslog`, `lynis` | ✅ Completed | LAB001 |
 | **Network Configuration** | Established persistent IPs for Bastion (`enp0s3=192.168.0.60`, `enp0s8=192.168.50.2`) | ✅ Completed | LAB001 LAB002 |
 ---
 
@@ -78,7 +78,7 @@ git push origin main
 |--------|--------|--------------|------------|---------|
 | **LAB 001** | Initialization & Bastion Setup | Build Debian bastion, add users and baseline tools. Lynis Audit | [LAB001](../docs/lab_notes/lab_001_initialization.md) | ✅ Completed |
 | **LAB 002** | Connectivity & IP Persistence | Configure internal/external NICs, ensure persistent IPs, validate network and update flow. | [LAB002](../docs/lab_notes/lab_002_connectivity_and_ip_persistence.md) | ⚙️ In-Progress |
-| **LAB 003** | SSH Hardening Pre Checklist & Verification | Configue SSH users and keys. Verify SSH. Retrieve logs for audit and Validation   | [LAB003](../docs/lab_notes/lab_003_hardening_checklist.md) | ⚙️ In-Progress |
+| **LAB 003** | SSH Hardening Pre Checklist & Verification | Configue SSH users and keys. Verify SSH. Retrieve logs for audit and Validation   | [LAB003]pending | ⚙️ In-Progress |
 | **LAB 004** | SSH Hardening | Disable root login, restrict forwarding, integrate CA trust, and test connection workflow. | *(planned)* | ⏳ Pending |
 | **LAB 005** | Log Forwarding & Monitoring | Forward bastion logs to monitor VM, verify visibility, and baseline log rotation. | *(planned)* | ⏳ Pending |
 | **LAB 006** | Network Ruleset & nftables Baseline | Establish nftables rule templates, verify with audit logs and baseline results. | *(planned)* | ⏳ Pending |

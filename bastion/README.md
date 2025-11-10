@@ -8,7 +8,7 @@ It enforces SSH policy, logging, and baseline hardening before access to interna
 | Component | Function |
 |------------|-----------|
 | Base Server | Debian 13.1.0 (Trixie) |
-| Diagram | [Bastion Development](./docs/diagrams/BastionNetworkDiagram.jpg) |
+| Diagram | [Bastion Development](../docs/diagrams/BastionNetworkDiagram.jpg) |
 | Users | `gitops` (collection), `aptusers` (update/maintenance) |
 | Network | `enp0s3` = 192.168.0.60 (host access), `enp0s8` = 192.168.50.2 (internal) |
 | Packages | `fail2ban`, `auditd`, `rsyslog`, `lynis`, `openssh-server` |
