@@ -74,11 +74,11 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 
 | Observations | Lab-analysis-reports | Notes    |
 ---------------|----------------------|----------|
-| [ANALYST-Notes]](../docs/observations/README.md) |  [POST-LAB-ANALYSIS](../../bastion/logs/LAB001/results/README.md) | |
+| [ANALYST-Notes](../docs/observations/README.md) |  [POST-LAB-ANALYSIS](../../bastion/logs/LAB001/results/README.md) | |
 
-| Artifact              | Log Path  | Validation Results | 
-|-----------------------|-----------|--------------------|
-| Lynis Baseline Logs | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) [LynisData](../../bastion/archive/raw_untagged/results/2025-11-08_lynis-report.data.log)| [Lynis-SSH](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-SSH.log) [Lynis-Score](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynis-score.log)  |
+| Artifact              | Log Path      | Validation Results   | 
+|-----------------------|---------------|----------------------|
+| Lynis Baseline Logs | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) - [LynisData](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis-report.data.log)| [Lynis-SSH](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-SSH.log) - [Lynis-Score](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynis-score.log)  |
 | Users created         | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | |
 | Fail2Ban Local Config | [Fail2Ban]pending | |
 | SSH config            | [SSH]pending | |
