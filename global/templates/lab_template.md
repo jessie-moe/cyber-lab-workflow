@@ -8,7 +8,7 @@
 | **Author:** | Jessie Moe |
 | **System:** | [System / VM] |
 | **Host Connection:** | [e.g., SSH from management host] |
-| **Repo Path:** | [/bastion/configs] |
+| **Repo Path:** | [LINK]() |
 | **Lab Type:** | [Baseline / Hardening / Validation / Network Config] |
 | **Objective:** | [Concise goal] |
 

@@ -17,3 +17,4 @@ option=value
 sudo systemctl restart [service]
 sudo systemctl status [service]
 ```
+- [] Log Result [LINK]

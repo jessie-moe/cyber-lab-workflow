@@ -14,14 +14,14 @@
 | Example | SSH root login enabled | Medium |
 
 ## 4. Recommendations
-- [ ] Disable SSH root login  
-- [ ] Implement fail2ban jail configuration  
+- [ ]   
+- [ ] 
 
 ## 5. Artifacts
-| Artifact | Path |
-|-----------|------|
-| Lynis Report | `/bastion/logs/baseline/results/lynis` |
-| Screenshot | `/docs/screenshots/ssh_audit.png` |
+| Artifact     | Path  |
+|--------------|-------|
+| Lynis Report |       |
+| Screenshot   |       |
 
 ---
 
