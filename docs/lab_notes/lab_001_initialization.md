@@ -66,18 +66,23 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 - [x] Ping `monitor_vm` to verify connectivity  
 - [x] Run initial Lynis baseline scan
 - [x] Backup Logs / **HASH** all backups to ensure integrity
-- [x] [LAB001-ANALYSIS](../../bastion/logs/LAB001/results.md)` Search parse and filter logs for user activity, network activity, and packages installed.
+- [x] [LAB001-ANALYSIS](../../bastion/logs/LAB001/results/LAB001-ANALYSIS.md)` Search parse and filter logs for user activity, network activity, and packages installed.
 
 ---
 
 ## 6. Results and Artifacts
 
+| Observations | Lab-analysis-reports | Notes    |
+---------------|----------------------|----------|
+| [ANALYST-Notes]](../docs/observations/README.md) |  [POST-LAB-ANALYSIS](../../bastion/logs/LAB001/results/README.md) | |
+
 | Artifact              | Log Path  | Validation Results | 
 |-----------------------|-----------|--------------------|
-| Lynis Baseline Report | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) | [LynisData](../../bastion/logs/LAB001/results/2025-11-08_lynis-report.data.log) |
-| Users:                | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | |
-| Fail2Ban Local Config | `/bastion/configs/fail2ban.local` | |
-| Ping Logs             | [LAB001-RESULTS-ICMP](../../bastion/logs/LAB001/results/ICMP-RESULTS.log) | |
+| Lynis Baseline Logs | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) [LynisData](../../bastion/archive/raw_untagged/results/2025-11-08_lynis-report.data.log)| [Lynis-SSH](../../bastion/logs/LAB001/results/2025-11-10-LAB001-ANALYSIS-SSH.log) [Lynis-Score](../../bastion/logs/LAB001/results/2025-11-10-LAB001-ANALYSIS-lynis-score.log  |
+| Users created         | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | |
+| Fail2Ban Local Config | [Fail2Ban]pending | |
+| SSH config            | [SSH]pending | |
+| Ping Logs             | [ICMP-dump](../../bastion/logs/archive/raw_untagged/2025-11-08_ICMP_COMBINED.log) | [ICMP-validation](../../bastion/logs/LAB001/2025-11-06_LAB001-ANALYSIS-ICMP-RESULTS.log) |
 ---
 
 ✅ **Objective Complete**
