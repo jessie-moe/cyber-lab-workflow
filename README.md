@@ -18,7 +18,7 @@ cd cyber-lab-workflow
 ```
 
 ## Repo layout
-- [WORKFLOW](cyber-lab-workflow/workflow.md) This is where you will find the Labs, and follow the worklfow. Labs will link to all Audits, Artifacts, Logs, an observations
+- [WORKFLOW](../workflow.md) This is where you will find the Labs, and follow the worklfow. Labs will link to all Audits, Artifacts, Logs, an observations
 - README files will beplaced in every directory for additional information
 - Bastion, Monitor_VM, HOST, attacker_VM etc..): Contain VM specific  logs and configuation change files between labs
 - gloabl: Will include global settings / scripts / repo specific settings
