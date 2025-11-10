@@ -9,7 +9,7 @@
 | **Author:** | Jessie Moe |
 | **System:** | Debian 13.1 Trixie (bastion VM) |
 | **Host Connection:** | Physical Access |
-| **Repo Path:** | `/bastion/configs`, `/bastion/scripts`, `/bastion/logs/baseline` |
+| **Diagram** | [Bastion Development](./docs/diagrams/BastionNetworkDiagram.jpg) |
 | **Lab Type:** | Initial Configuration / Baseline Lynis |
 | **Objective:** | Establish a minimal Debian SSH bastion, install baseline security packages, and collect initial audit data for later hardening. |
 
@@ -19,7 +19,7 @@
 
 Initialize the bastion system for secure SSH management and baseline auditing.
 This lab installs essential packages and SSH server only
-Cconfigures foundational users,  Download base packages, and then captures the system’s first Lynis baseline.
+Configures foundational users,  Download base packages, and then captures the system’s first Lynis baseline.
 
 ---
 
@@ -29,7 +29,7 @@ Cconfigures foundational users,  Download base packages, and then captures the s
 - [x] Monitor_VM deployed  
 - [x] Static external IP (e.g., `192.168.0.60`)  
 - [x] Static internal IP (e.g., `192.168.50.2`)  
-- [x] Diagram available: `/docs/diagrams/lab_topology.drawio`
+- [x] Diagram available
 
 ---
 
