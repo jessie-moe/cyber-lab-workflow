@@ -38,7 +38,7 @@ Phases will have sub phases to complete required testing and labs needed to veri
 
 ## 4. Planned Next Steps 🧭
 
-| Phase | Task | Description | Planned Lab |
+| Phase | Task | Planned Lab | Description |
 |--------|------|-------------|--------------|
 | **Fail2Ban Jails & Log Review** | Validate ban triggers and log alerts | LAB 004 | Compare Fail2Ban logs pre/post SSH changes |
 | **SSH Hardening Audit** | Perform Lynis and manual checks for SSH compliance | LAB 005 | Document findings and improvements |
