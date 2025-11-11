@@ -24,5 +24,10 @@
 | Screenshot   |       |
 
 ---
+⚠️ **Warning**
+✅ **Pass**  
+❌ **FAIL / NO**  
+⛔ **Error**  
+🟥 **Alert**  
 
 ✅ **Report Complete**
