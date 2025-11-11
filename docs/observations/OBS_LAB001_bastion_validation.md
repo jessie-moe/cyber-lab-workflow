@@ -49,7 +49,7 @@ aptuser:x:1002:1002:,,,:/home/aptuser:/bin/bash
 ```
 `_apt` is a system created account, created by apt. It is a lower privileged account that could be used to manage the apt cache repository.
 
--[] Verify the need of an additional aptuser account
+-[ ] Verify the need of an additional aptuser account
 -[x] Accounts requested created
 
 ---
@@ -61,10 +61,10 @@ aptuser:x:1002:1002:,,,:/home/aptuser:/bin/bash
 
 | File | Location | Purpose | Modified
 |------------------------|-----------|----------|---|
-| `auth.log` | [Auth](../bastion/logs/archive/raw_untagged/2025-11-08_auth.log | Tracks login attempts | ❌ |
-| `journalctl` Export | [Journalctl](../bastion/logs/archive/raw_untagged/2025-11-08_journalctl.log) | Kernel & system messages | ❌ |
+| `auth.log` | [Auth](../../bastion/logs/archive/raw_untagged/2025-11-08_auth.log) | Tracks login attempts | ❌ |
+| `journalctl` Export | [Journalctl](../../bastion/logs/archive/raw_untagged/2025-11-08_journalctl.log) | Kernel & system messages | ❌ |
 | `network/interfaces` | [path to file] | Set IP| ✅ |
-| `etc/passwd` | [Passwd](../bastion/logs/archive/raw_untagged/2025-11-08_users.log) | Validate Accounts | ✅ |
+| `etc/passwd` | [Passwd](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log) | Validate Accounts | ✅ |
 
 
 *(Include hash checksums or SHA256 values for integrity validation if applicable.)*
@@ -83,7 +83,7 @@ Describe key log findings, anomalies, or expected results verified.
 | System | Modification | Install lynis, fail2ban, auditd | Install lynis, fail2ban, auditd | ✅ |
 
 ⚠️***In progess***⚠️
- -[] Pull network/interfaces config file
- -[] place file in repo
- -[] add relevant findings to report
- -[] verify links
+ -[ ] Pull network/interfaces config file
+ -[ ] Place all files in necessary folders
+ -[ ] add relevant findings to report
+ -[ ] verify links
