@@ -49,8 +49,8 @@ aptuser:x:1002:1002:,,,:/home/aptuser:/bin/bash
 ```
 `_apt` is a system created account, created by apt. It is a lower privileged account that could be used to manage the apt cache repository.
 
--[ ] Verify the need of an additional aptuser account
--[x] Accounts requested created
+- [ ] Verify the need of an additional aptuser account
+- [x] Accounts requested created
 
 ---
 ###APT Packages
@@ -83,7 +83,7 @@ Describe key log findings, anomalies, or expected results verified.
 | System | Modification | Install lynis, fail2ban, auditd | Install lynis, fail2ban, auditd | ✅ |
 
 ⚠️***In progess***⚠️
- -[ ] Pull network/interfaces config file
- -[ ] Place all files in necessary folders
- -[ ] add relevant findings to report
- -[ ] verify links
+ - [ ] Pull network/interfaces config file
+ - [ ] Place all files in necessary folders
+ - [ ] add relevant findings to report
+ - [x] verify links
