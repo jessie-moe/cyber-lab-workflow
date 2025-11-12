@@ -1,26 +1,24 @@
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+grep -a -E "useradd|adduser|usermod|deluser|userdel|new user" cyber-lab-workflow/bastion/logs/archive/raw_untagged/2025-11-08_journalctl.log
+Nov 06 14:48:11 bastion sudo[872]:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/sbin/adduser gitops --shell /usr/sbin/nologin
+Nov 06 14:48:11 bastion adduser[875]: Adding user `gitops' ...
+Nov 06 14:48:11 bastion useradd[884]: new user: name=gitops, UID=1001, GID=1001, home=/home/gitops, shell=/usr/sbin/nologin, from=/dev/pts/0
+Nov 06 14:48:11 bastion adduser[875]: Creating home directory `/home/gitops' ...
+Nov 06 14:49:13 bastion adduser[875]: Adding new user `gitops' to supplemental / extra groups `users' ...
+Nov 06 14:49:13 bastion adduser[875]: Adding user `gitops' to group `users' ...
+
+Nov 06 14:59:10 bastion sudo[976]:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/sbin/adduser aptuser
+Nov 06 14:59:10 bastion adduser[983]: Adding user `aptuser' ...
+Nov 06 14:59:10 bastion adduser[983]: Adding new group `aptuser' (1002) ...
+Nov 06 14:59:10 bastion adduser[983]: Adding new user `aptuser' (1002) with group `aptuser (1002)' ...
+Nov 06 14:59:10 bastion useradd[992]: new user: name=aptuser, UID=1002, GID=1002, home=/home/aptuser, shell=/bin/bash, from=/dev/pts/1
+Nov 06 14:59:10 bastion adduser[983]: Creating home directory `/home/aptuser' ...
+Nov 06 14:59:38 bastion adduser[983]: Adding new user `aptuser' to supplemental / extra groups `users' ...
+Nov 06 14:59:38 bastion adduser[983]: Adding user `aptuser' to group `users' ...
+```
+
+```bash
+grep -a -E "git|apt" 
 _apt:x:42:65534::/nonexistent:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
-dhcpcd:x:100:65534:DHCP Client Daemon:/usr/lib/dhcpcd:/bin/false
-systemd-timesync:x:991:991:systemd Time Synchronization:/:/usr/sbin/nologin
-messagebus:x:990:990:System Message Bus:/nonexistent:/usr/sbin/nologin
-sshd:x:989:65534:sshd user:/run/sshd:/usr/sbin/nologin
-jessie:x:1000:1000:jessie,,,:/home/jessie:/bin/bash
 gitops:x:1001:1001:,,,:/home/gitops:/usr/sbin/nologin
 aptuser:x:1002:1002:,,,:/home/aptuser:/bin/bash
+```

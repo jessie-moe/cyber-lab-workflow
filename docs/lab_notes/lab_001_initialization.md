@@ -66,23 +66,23 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 - [x] Ping `monitor_vm` to verify connectivity  
 - [x] Run initial Lynis baseline scan
 - [x] Backup Logs / **HASH** all backups to ensure integrity
-- [x] [LAB001-ANALYSIS](../../bastion/logs/LAB001/results/LAB001-ANALYSIS.md)` Search parse and filter logs for user activity, network activity, and packages installed.
+- [x] [LAB001-ANALYSIS](../../bastion/logs/LAB001/results/LAB001-ANALYSIS.md) Search parse and filter logs for user activity, network activity, and packages installed.
 
 ---
 
 ## 6. Results and Artifacts
 
-| Observations | Lab-analysis-reports | Notes    |
----------------|----------------------|----------|
-| [ANALYST-Notes](../docs/observations/README.md) |  [POST-LAB-ANALYSIS](../../bastion/logs/LAB001/results/README.md) | |
+ [POST-LAB-ANALYSIS](../../bastion/logs/LAB001/results/README.md) *(In Progress)* ⚠️
 
 | Artifact              | Log Path      | Validation Results   | 
 |-----------------------|---------------|----------------------|
 | Lynis Baseline Logs | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) - [LynisData](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis-report.data.log)| [Lynis-SSH](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-SSH.log) - [Lynis-Score](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynis-score.log)  |
-| Users created         | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | |
-| Fail2Ban Local Config | [Fail2Ban]pending | |
-| SSH config            | [SSH]pending | |
+| Users created         | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | [Users](../../bastion/logs/LAB001/results/2025-11-08_LAB001-ANALYSIS-user_modification.log) |
+| Fail2Ban Local Config | [Fail2Ban](../../bastion/logs/archive/raw_untagged/2025-11-11_fail2ban.conf.bak) | [Fail2Ban]*(pending log review)* |
+| SSH config            | [SSH](../../bastion/logs/archive/raw_untagged/2025-11-11_sshd_config) | [SocketState](../../bastion/logs/archive/raw_untagged/2025-11-11_ss.log)|
 | Ping Logs             | [ICMP-dump](../../bastion/logs/archive/raw_untagged/2025-11-08_ICMP_COMBINED.log) | [ICMP-validation](../../bastion/logs/LAB001/results/2025-11-06_LAB001-ANALYSIS-ICMP-RESULTS.log) |
 ---
 
-✅ **Objective Complete**
+- [ ] **Objective Complete**
+
+- [ ]Verify Links Since changes
