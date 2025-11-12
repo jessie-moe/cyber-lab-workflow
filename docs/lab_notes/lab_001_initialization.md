@@ -66,7 +66,7 @@ sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 - [x] Ping `monitor_vm` to verify connectivity  
 - [x] Run initial Lynis baseline scan
 - [x] Backup Logs / **HASH** all backups to ensure integrity
-- [ ] [LAB001-ANALYSIS](../docs/observations/OBS_LAB001_bastion_validation.md) Parse and filter logs for anomalies, additional observations. ⚠️ *(In Progress)*
+- [ ] [LAB001-ANALYSIS](/docs/observations/OBS_LAB001_bastion_validation.md) Parse and filter logs for anomalies, additional observations. ⚠️ *(In Progress)*
 
 ---
 
