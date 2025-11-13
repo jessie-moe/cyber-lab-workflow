@@ -1,3 +1,31 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | OBS-LAB001-1                                                           |
+| **Description:**       | Lynis hardening Index / Baseline Audit Run                             |
+| **Related Lab:**       | LAB001 — *lab-initialization*                                          |
+| **Date Analyzed:**     | 2025-11-12                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion |						                                      |
+| **Primary Logs Used:** | 2025-11-08_lynis.log | 2025-11-08_journalctl.log                       |
+| **Category:**          | Audit |																  |
+| **Severity:**          | Critical	|					                                          |
+
 2025-11-08 08:07:40 Hardening index : [65] [#############       ]
 
 hardening_index=65
+Nov 06 15:03:16 bastion sudo[1423]:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/bin/apt install lynis nftables fail2ban auditd rsyslog
+Nov 06 15:03:38 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 06 15:21:02 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 06 16:26:20 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 06 16:55:58 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 06 16:56:33 bastion sudo[792]:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+Nov 07 14:54:25 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 07 15:15:49 bastion sudo[952]:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+Nov 07 15:17:56 bastion sudo[34538]:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv lynis*.* /home/jessie/Documents
+Nov 07 15:18:44 bastion sudo[34542]:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv /var/log/lynis.log /var/log/lynis-report.dat /home/jessie/Documents
+Nov 07 15:42:07 bastion sudo[34686]:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/mv /home/jessie/Documents/lynis.log /home/jessie/Documents/lynis-report.dat /media/usb-drive/logs
+Nov 07 15:48:49 bastion systemd[1]: lynis.timer: Deactivated successfully.
+Nov 07 15:48:49 bastion systemd[1]: Stopped lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 08 07:17:18 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 08 07:25:24 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+Nov 08 07:45:48 bastion sudo[891]:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06_journalctl.log 2025-11-06_lynis.log.log 2025-11-06_lynis.dat.log 2025-11-06_auth.log

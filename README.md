@@ -37,3 +37,6 @@ See CONTRIBUTING.md for contribution guidelines, testing, and PR expectations.
 
 ## License
 This repository currently has no license file. If you plan to make content public, add a LICENSE (e.g., MIT, Apache 2.0). Private use content is allowed, but consider licensing for shareable modules and playbooks.
+
+✅ **Maintained by:** Jessie Moe  
+📆 **Last Updated:** 2025-11-12

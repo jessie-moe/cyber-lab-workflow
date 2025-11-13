@@ -58,28 +58,30 @@ sudo apt update
 sudo apt install lynis nftables fail2ban auditd rsyslog openssh-server -y
 ```
 
+## 4.4 Lynis System Audit
+```bash
+sudo Lynis audit system
+```
+
 ---
 
 ## 5. Validation Tasks
+##  [LAB001-ANALYSIS](/docs/observations/OBS_LAB001_bastion_validation.md) Parse and filter logs for anomalies, additional observations. ⚠️ *(In Progress)*
+
 
 - [x] Ping `host` to verify connectivity  
 - [x] Ping `monitor_vm` to verify connectivity  
 - [x] Run initial Lynis baseline scan
 - [x] Backup Logs / **HASH** all backups to ensure integrity
-- [ ] [LAB001-ANALYSIS](/docs/observations/OBS_LAB001_bastion_validation.md) Parse and filter logs for anomalies, additional observations. ⚠️ *(In Progress)*
-
+- [ ] Validate and document all LAB and Observation data.
 ---
 
-## 6. Results and Artifacts
-| Artifact              | Log Path      | Validation Results   | 
-|-----------------------|---------------|----------------------|
-| Lynis Baseline Logs | [LynisLog](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis.log) - [LynisData](../../bastion/logs/archive/raw_untagged/2025-11-08_lynis-report.data.log)| [Lynis-SSH](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-SSH.log) - [Lynis-Score](../../bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynis-score.log)  |
-| Users created         | [User Accounts](../../bastion/logs/archive/raw_untagged/2025-11-08_users.log)  | [Users](../../bastion/logs/LAB001/results/2025-11-08_LAB001-ANALYSIS-user_modification.log) |
-| Fail2Ban Local Config | [Fail2Ban](../../bastion/logs/archive/raw_untagged/2025-11-11_fail2ban.conf.bak) | [Fail2Ban]*(pending log review)* |
-| SSH config            | [SSH](../../bastion/logs/archive/raw_untagged/2025-11-11_sshd_config) | [SocketState](../../bastion/logs/archive/raw_untagged/2025-11-11_ss.log)|
-| Ping Logs             | [ICMP-dump](../../bastion/logs/archive/raw_untagged/2025-11-08_ICMP_COMBINED.log) | [ICMP-validation](../../bastion/logs/LAB001/results/2025-11-06_LAB001-ANALYSIS-ICMP-RESULTS.log) |
----
+
 
 - [ ] **Objective Complete**
 
-- [ ]Verify Links Since changes
+- [X] Verify Links Since changes
+
+
+✅ **Maintained by:** Jessie Moe  
+📆 **Last Updated:** 2025-11-12

@@ -72,16 +72,11 @@ sudo reboot
 - [x] Ping `host` (external)  
 - [x] Ping `internal_vm`  
 - [x] Confirm persistent configuration after reboot
+- [ ] [LAB002-ANALYSIS]*(pending)*
 
 ---
 
-## 6. Results and Artifacts
+ **In Progress**
 
-| Artifact | Path |
-|-----------|------|
-| Network Interface Config Backup | `/bastion/backups/interfaces.bak` |
-| ICMP Log File | `/bastion/logs/baseline/icmp_test.log` |
-
----
-
-✅ **Objective Complete**
+✅ **Maintained by:** Jessie Moe  
+📆 **Last Updated:** 2025-11-12

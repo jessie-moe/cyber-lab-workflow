@@ -15,8 +15,8 @@ It enforces SSH policy, logging, and baseline hardening before access to interna
 
 ## Technical Summary
 ---
-| **HDD:** | 10G |
-|**MEM:** | Total: 1024MB | 
+| **Physical HDD:** | 10G |
+|**Physical MEM Allocated:** | Total: 1024MB | 
   
 ## 🧾 Log Handling 
 - Initial log collection done by Development User until SSHFS
@@ -32,3 +32,7 @@ It enforces SSH policy, logging, and baseline hardening before access to interna
 - [ ]Configure fail2ban
 - [ ]Configure auditd
 - [ ]Integrate log forwarding to `monitor_vm`.
+
+
+✅ **Maintained by:** Jessie Moe  
+📆 **Last Updated:** 2025-11-12

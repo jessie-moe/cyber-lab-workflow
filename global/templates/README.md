@@ -9,10 +9,10 @@ Each template is designed to maintain consistency, documentation quality, and re
 
 | File | Purpose |
 |------|----------|
-| **lab_template.md** | Use this template for new lab documentation. It includes metadata, objectives, configuration, validation, and result sections. |
-| **config_template.md** | Use this to define reusable configuration files (e.g., `rsyslog.conf`, `fail2ban.local`, `nftables.conf`). Include the deployment path and verification commands. |
-| **script_template.sh** | Starter shell script with structured logging and main function logic. Use for automation, log collection, or validation tasks. |
-| **report_template.md** | Formal report template for findings, audits, or blue/red team summaries following a completed lab. |
+| **artifact_template.md** | Use this template for new artifact documentation. It includes metadata identifiers, descriptions, and analysis results. |
+| **artifact_template.mdtemplate.md** | Use this template inside lab and analysis documents to provide metadata for artifacts and configuation files. |
+| **config_template.md** | Starter template(s) for making configuation files, services, and other linux files. Used for automation, log collection, or validation tasks. |
+| **lab_template.md** | Formal report template for findings, audits, or summaries following a completed lab. |
 
 ---
 
@@ -49,4 +49,4 @@ cp templates/report_template.md tests/hardening/reports/lynis_analysis.md
 ---
 
 ✅ **Maintained by:** Jessie Moe  
-📆 **Last Updated:** 2025-11-06
+📆 **Last Updated:** 2025-11-12

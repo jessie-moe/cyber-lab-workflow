@@ -14,11 +14,16 @@
 
 # 🧾 Repository Change Log
 | Date | Author | Change | Validation Log | Notes |
-|------|---------|---------|------------------|------------------|
-| 2025-11-07 | Jessie Moe | Repo Audit Integration Commit 001 | [🔗 View Log](https://github.com/jessie-moe/cyber-lab-workflow/blob/main/docs/change_logs/repo_audit_integration.md) | |
+|------|---------|------------------|---------------|------------------|
+| 2025-11-07 | Jessie Moe | Repo Audit Integration Commit 001 | | |
+| 2025-11-12 | Jessie Moe | Repo Layout Change, Update README.md(s) | | |
 
 ### Planned
 - Configurations for bastion (`fail2ban.local`, `nftables.conf`, `sshd_config`)
 - SSH hardening
 - secure apt cache repository for `Internal Net`
 - Baseline log automation and forwarding to `monitor_vm`
+
+
+✅ **Maintained by:** Jessie Moe  
+📆 **Last Updated:** 2025-11-12
