@@ -1,0 +1,285 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | AUTH-001                                                               |
+| **Description:**       | Analysis - User account authorization  on bastion host                    |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion  						                                      |
+| **Primary Logs Used:** | 2025-11-08_journalctl.log|2025-11-08_auth.log|2025-11-08_accounts.log  |
+| **Category:**          | Accounts | Authentication | System                                     |
+| **Severity:**          | Medium                                                                 |
+
+grep -E "1000" 2025-11-08_accounts.log 
+    jessie:x:1000:1000:jessie,,,:/home/jessie:/bin/bash
+
+awk '/uid=/{match($0, /uid=[0-9]+/); print substr($0, RSTART, RLENGTH)}' ../../LAB001/results/Authentication/2025-11-13_AUTH_001.log | sort | uniq -c 
+      1 
+     73 uid=0
+     10 uid=1000
+
+grep -a -C2 -E 'sshd|Accepted|Failed|Invalid user|session opened|session closed|sudo:' 2025-11-08_auth.log
+    2025-11-06T15:03:43.527223-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T15:04:16.071134-07:00 bastion sudo:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/bin/apt install openssh-server -y
+    2025-11-06T15:04:16.074746-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-06T15:04:16.471396-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T15:21:02.318430-07:00 bastion systemd-logind[656]: New seat seat0.
+    2025-11-06T15:21:02.318432-07:00 bastion systemd-logind[656]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-06T15:21:02.318433-07:00 bastion systemd-logind[656]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-06T15:21:02.318436-07:00 bastion systemd-logind[656]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-06T15:21:02.485074-07:00 bastion sshd[726]: Server listening on 0.0.0.0 port 22.
+    2025-11-06T15:21:02.485402-07:00 bastion sshd[726]: Server listening on :: port 22.
+    2025-11-06T15:21:51.918043-07:00 bastion login: pam_unix(login:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-06T15:21:51.931419-07:00 bastion systemd-logind[656]: New session 1 of user jessie.
+    2025-11-06T15:21:51.981574-07:00 bastion (systemd): pam_unix(systemd-user:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-06T15:21:51.983242-07:00 bastion systemd-logind[656]: New session 2 of user jessie.
+    2025-11-06T15:30:01.705857-07:00 bastion CRON[820]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T15:30:01.712034-07:00 bastion CRON[820]: pam_unix(cron:session): session closed for user root
+    2025-11-06T15:50:51.139154-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/nano /etc/networking/interfaces
+    2025-11-06T15:50:51.142921-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-06T15:50:53.890770-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T15:51:25.222257-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/nano /etc/network/interfaces
+    2025-11-06T15:51:25.223355-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-06T15:55:32.166484-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T15:55:54.806784-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/systemctl restart networking
+    2025-11-06T15:55:54.810920-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-06T15:55:55.021404-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T16:17:01.751682-07:00 bastion CRON[1021]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T16:17:01.757375-07:00 bastion CRON[1021]: pam_unix(cron:session): session closed for user root
+    2025-11-06T16:26:21.139483-07:00 bastion systemd-logind[684]: New seat seat0.
+    2025-11-06T16:26:21.142480-07:00 bastion systemd-logind[684]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-06T16:26:21.142568-07:00 bastion systemd-logind[684]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-06T16:26:21.143064-07:00 bastion systemd-logind[684]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-06T16:26:21.257260-07:00 bastion sshd[754]: Server listening on 0.0.0.0 port 22.
+    2025-11-06T16:26:21.257393-07:00 bastion sshd[754]: Server listening on :: port 22.
+    2025-11-06T16:55:58.189116-07:00 bastion systemd-logind[679]: New seat seat0.
+    2025-11-06T16:55:58.189117-07:00 bastion systemd-logind[679]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-06T16:55:58.189119-07:00 bastion systemd-logind[679]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-06T16:55:58.189121-07:00 bastion systemd-logind[679]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-06T16:55:58.313408-07:00 bastion sshd[756]: Server listening on 0.0.0.0 port 22.
+    2025-11-06T16:55:58.313861-07:00 bastion sshd[756]: Server listening on :: port 22.
+    2025-11-06T16:56:09.831125-07:00 bastion login: pam_unix(login:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-06T16:56:09.880763-07:00 bastion systemd-logind[679]: New session 1 of user jessie.
+    2025-11-06T16:56:09.900592-07:00 bastion (systemd): pam_unix(systemd-user:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-06T16:56:09.901899-07:00 bastion systemd-logind[679]: New session 2 of user jessie.
+    2025-11-06T16:56:33.825978-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+    2025-11-06T16:56:33.826467-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-06T16:56:54.204072-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-06T17:17:01.973247-07:00 bastion CRON[34378]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T17:17:01.977782-07:00 bastion CRON[34378]: pam_unix(cron:session): session closed for user root
+    2025-11-06T17:30:01.989067-07:00 bastion CRON[34388]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T17:30:01.996486-07:00 bastion CRON[34388]: pam_unix(cron:session): session closed for user root
+    2025-11-06T18:17:01.024813-07:00 bastion CRON[34405]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T18:17:01.030010-07:00 bastion CRON[34405]: pam_unix(cron:session): session closed for user root
+    2025-11-06T18:30:01.048796-07:00 bastion CRON[34415]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T18:30:01.054491-07:00 bastion CRON[34415]: pam_unix(cron:session): session closed for user root
+    2025-11-06T19:17:01.081934-07:00 bastion CRON[34433]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T19:17:01.086382-07:00 bastion CRON[34433]: pam_unix(cron:session): session closed for user root
+    2025-11-06T19:30:01.103003-07:00 bastion CRON[34441]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T19:30:01.107230-07:00 bastion CRON[34441]: pam_unix(cron:session): session closed for user root
+    2025-11-06T20:17:01.139474-07:00 bastion CRON[34458]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T20:17:01.149026-07:00 bastion CRON[34458]: pam_unix(cron:session): session closed for user root
+    2025-11-06T20:30:01.164058-07:00 bastion CRON[34466]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T20:30:01.167346-07:00 bastion CRON[34466]: pam_unix(cron:session): session closed for user root
+    2025-11-06T21:17:01.199917-07:00 bastion CRON[34483]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T21:17:01.205284-07:00 bastion CRON[34483]: pam_unix(cron:session): session closed for user root
+    2025-11-06T21:30:01.220291-07:00 bastion CRON[34491]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-06T21:30:01.224320-07:00 bastion CRON[34491]: pam_unix(cron:session): session closed for user root
+    2025-11-07T14:54:25.540929-07:00 bastion systemd-logind[671]: New seat seat0.
+    2025-11-07T14:54:25.540932-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-07T14:54:25.540934-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-07T14:54:25.540935-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-07T14:54:25.699086-07:00 bastion sshd[797]: Server listening on 0.0.0.0 port 22.
+    2025-11-07T14:54:25.699443-07:00 bastion sshd[797]: Server listening on :: port 22.
+    2025-11-07T14:54:37.966715-07:00 bastion login: pam_unix(login:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-07T14:54:37.988687-07:00 bastion systemd-logind[671]: New session 1 of user jessie.
+    2025-11-07T14:54:38.030687-07:00 bastion (systemd): pam_unix(systemd-user:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-07T14:54:38.033682-07:00 bastion systemd-logind[671]: New session 2 of user jessie.
+    2025-11-07T14:57:12.848378-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/mkdir /media/usb-drive
+    2025-11-07T14:57:12.849151-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T14:57:12.852552-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T14:58:37.633803-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb1 /media/usb-drive
+    2025-11-07T14:58:37.634158-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T14:58:37.638899-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T14:59:10.002041-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/tail dmesg
+    2025-11-07T14:59:10.003195-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T14:59:10.007577-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T14:59:38.812941-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb/sdb1 /media/usb-drive
+    2025-11-07T14:59:38.816085-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T14:59:38.819471-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T14:59:44.965282-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb1 /media/usb-drive
+    2025-11-07T14:59:44.966333-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T14:59:44.972733-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:01:11.892801-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb1 /cdrom0
+    2025-11-07T15:01:11.893865-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:01:11.899459-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:01:23.948843-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb /cdrom0
+    2025-11-07T15:01:23.949802-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:01:23.954895-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:01:33.045499-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb /cdrom0
+    2025-11-07T15:01:33.046431-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:01:33.057892-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:01:36.426657-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb1 /cdrom0
+    2025-11-07T15:01:36.428030-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:01:36.433408-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:02:31.442678-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount /sdb /mnt
+    2025-11-07T15:02:31.443680-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:02:31.447658-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:04:29.327753-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount dev/sdb1 /media/usb-drive
+    2025-11-07T15:04:29.331913-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:04:29.334464-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:04:39.772442-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount dev/sdb /media/usb-drive
+    2025-11-07T15:04:39.773431-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:04:39.778198-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:06:20.196509-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/sbin/blkid /dev/sdb1
+    2025-11-07T15:06:20.197981-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:06:20.252867-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:08:38.010364-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb-drive -o uid=jessie,gid=jessie,utf8,dmask=027,fmask=137
+    2025-11-07T15:08:38.011292-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:08:38.065395-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:15:49.205261-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+    2025-11-07T15:15:49.209083-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:16:09.846164-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:17:01.037445-07:00 bastion CRON[34532]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-07T15:17:01.041776-07:00 bastion CRON[34532]: pam_unix(cron:session): session closed for user root
+    2025-11-07T15:17:56.928091-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv lynis*.* /home/jessie/Documents
+    2025-11-07T15:17:56.933159-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:17:56.935815-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:18:44.808289-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv /var/log/lynis.log /var/log/lynis-report.dat /home/jessie/Documents
+    2025-11-07T15:18:44.809355-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:18:44.812690-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:22:50.902356-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log/apt ; USER=root ; COMMAND=/usr/bin/cat history.log
+    2025-11-07T15:22:50.903479-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:22:50.908543-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:23:15.371885-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log/apt ; USER=root ; COMMAND=/usr/bin/cat term.log
+    2025-11-07T15:23:15.375222-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:23:15.379521-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:30:01.058411-07:00 bastion CRON[34573]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-07T15:30:01.062519-07:00 bastion CRON[34573]: pam_unix(cron:session): session closed for user root
+    2025-11-07T15:30:19.621556-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/grep -E 'useradd|groupadd|adduser|group added|new_user' /var/log/auth.log
+    2025-11-07T15:30:19.627669-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:30:19.629843-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:31:39.734374-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/cat auth.log
+    2025-11-07T15:31:39.735295-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:31:39.737464-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:33:45.372160-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --since '2 days ago' --until yesterday
+    2025-11-07T15:33:45.372683-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:33:45.385795-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:34:04.208124-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --until yesterday
+    2025-11-07T15:34:04.209333-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:34:04.230002-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:35:30.583392-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --since yesterday
+    2025-11-07T15:35:30.586554-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:35:30.607882-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:37:47.147303-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/find /home/jessie/Documents -type f -exec sha256sum {} +
+    2025-11-07T15:37:47.148609-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:37:47.157902-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:42:07.295683-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/mv /home/jessie/Documents/lynis.log /home/jessie/Documents/lynis-report.dat /media/usb-drive/logs
+    2025-11-07T15:42:07.299608-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:42:07.302855-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:45:35.566511-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/umount usb-drive
+    2025-11-07T15:45:35.567656-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:45:35.576476-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:46:53.057028-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/umount /media
+    2025-11-07T15:46:53.057979-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:46:53.061990-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:47:43.530742-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/sbin/shutdown -i
+    2025-11-07T15:47:43.534313-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:47:43.541813-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:47:48.925829-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/sbin/shutdown -f
+    2025-11-07T15:47:48.926703-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-07T15:47:48.933373-07:00 bastion systemd-logind[671]: The system will power off at Fri 2025-11-07 15:48:48 MST!
+    2025-11-07T15:47:48.941415-07:00 bastion systemd-logind[671]: Creating /run/nologin, blocking further logins...
+    2025-11-07T15:47:48.942097-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-07T15:48:49.109360-07:00 bastion systemd-logind[671]: System is powering down.
+    2025-11-07T15:48:49.117972-07:00 bastion systemd-logind[671]: The system will power off now!
+    2025-11-07T15:48:49.143363-07:00 bastion login: pam_unix(login:session): session closed for user jessie
+    2025-11-08T07:17:18.330364-07:00 bastion systemd-logind[671]: New seat seat0.
+    2025-11-08T07:17:18.330365-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-08T07:17:18.330367-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-08T07:17:18.330370-07:00 bastion systemd-logind[671]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-08T07:17:18.458218-07:00 bastion sshd[748]: Server listening on 0.0.0.0 port 22.
+    2025-11-08T07:17:18.459638-07:00 bastion sshd[748]: Server listening on :: port 22.
+    2025-11-08T07:17:42.686373-07:00 bastion unix_chkpwd[758]: password check failed for user (jessie)
+    2025-11-08T07:17:42.686890-07:00 bastion login: pam_unix(login:auth): authentication failure; logname= uid=0 euid=0 tty=/dev/tty1 ruser= rhost=  user=jessie
+    2025-11-08T07:17:45.727567-07:00 bastion login: FAILED LOGIN 1 FROM tty1 FOR jessie, Authentication failure
+    2025-11-08T07:17:54.506122-07:00 bastion login: pam_unix(login:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-08T07:17:54.526293-07:00 bastion systemd-logind[671]: New session 1 of user jessie.
+    2025-11-08T07:17:54.578075-07:00 bastion (systemd): pam_unix(systemd-user:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-08T07:17:54.579625-07:00 bastion systemd-logind[671]: New session 2 of user jessie.
+    2025-11-08T07:21:31.447619-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Temporary ; USER=root ; COMMAND=/usr/bin/mount /dev/sdb1 -vfat /media/usb-drive
+    2025-11-08T07:21:31.448388-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:21:31.454649-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:25:24.354161-07:00 bastion systemd-logind[672]: New seat seat0.
+    2025-11-08T07:25:24.354164-07:00 bastion systemd-logind[672]: Watching system buttons on /dev/input/event4 (Power Button)
+    2025-11-08T07:25:24.354165-07:00 bastion systemd-logind[672]: Watching system buttons on /dev/input/event5 (Sleep Button)
+    2025-11-08T07:25:24.354167-07:00 bastion systemd-logind[672]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+    2025-11-08T07:25:24.454335-07:00 bastion sshd[743]: Server listening on 0.0.0.0 port 22.
+    2025-11-08T07:25:24.454748-07:00 bastion sshd[743]: Server listening on :: port 22.
+    2025-11-08T07:25:31.556562-07:00 bastion login: pam_unix(login:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-08T07:25:31.576375-07:00 bastion systemd-logind[672]: New session 1 of user jessie.
+    2025-11-08T07:25:31.642370-07:00 bastion (systemd): pam_unix(systemd-user:session): session opened for user jessie(uid=1000) by jessie(uid=0)
+    2025-11-08T07:25:31.644711-07:00 bastion systemd-logind[672]: New session 2 of user jessie.
+    2025-11-08T07:26:48.644896-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb
+    2025-11-08T07:26:48.645717-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:26:48.705514-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:27:00.174544-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb-drive
+    2025-11-08T07:27:00.175963-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:27:00.199941-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:30:01.174510-07:00 bastion CRON[797]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-08T07:30:01.177750-07:00 bastion CRON[797]: pam_unix(cron:session): session closed for user root
+    2025-11-08T07:33:40.161388-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history apt-term}.log
+    2025-11-08T07:33:40.164797-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:33:40.165323-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:34:20.525170-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history}{apt-term}.log
+    2025-11-08T07:34:20.526162-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:34:20.528502-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:34:56.973612-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm -rf 2025-11-06-{apt-history}{apt-term}.log apt-term}.log
+    2025-11-08T07:34:56.974630-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:34:56.976832-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:35:31.378813-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history.log apt-term.log}
+    2025-11-08T07:35:31.381794-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:35:31.384474-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:36:39.504567-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm 2025-11-06-{apt-history.log apt-term.log}
+    2025-11-08T07:36:39.505645-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:36:39.508426-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:37:02.187705-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch apt-hitory.log
+    2025-11-08T07:37:02.191761-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:37:02.192463-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:37:34.492383-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm apt-hitory.log
+    2025-11-08T07:37:34.493391-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:37:34.495748-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:38:11.325465-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm *.*
+    2025-11-08T07:38:11.327011-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:38:11.330697-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:38:50.531917-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm 2025-11-06-{apt-history
+    2025-11-08T07:38:50.532714-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:38:50.534386-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:40:17.448865-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06apt-history.log 2025-11-06apt-term.log
+    2025-11-08T07:40:17.450014-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:40:17.452817-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:41:32.041012-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-history.log 2025-11-06_apt-history.log
+    2025-11-08T07:41:32.042085-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:41:32.045005-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:41:46.621372-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-history.log 2025-11-06_apt-term.log
+    2025-11-08T07:41:46.622389-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:41:46.627205-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:41:57.436897-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-term.log 2025-11-06_apt-term.log
+    2025-11-08T07:41:57.437944-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:41:57.440640-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:45:48.665753-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06_journalctl.log 2025-11-06_lynis.log.log 2025-11-06_lynis.dat.log 2025-11-06_auth.log
+    2025-11-08T07:45:48.668533-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:45:48.668626-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:47:46.210883-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06_users.log
+    2025-11-08T07:47:46.211392-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:47:46.215029-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:52:16.857074-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents ; USER=root ; COMMAND=/usr/bin/cat test /media/usb-drive/logs/2025-11-06_auth.log
+    2025-11-08T07:52:16.860277-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:52:16.864949-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:54:37.675842-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents ; USER=root ; COMMAND=/usr/bin/mv /media/usb-drive/logs /home/jessie/Documents/
+    2025-11-08T07:54:37.677189-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:54:37.846095-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    2025-11-08T07:56:45.504092-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents/logs ; USER=root ; COMMAND=/usr/bin/su
+    2025-11-08T07:56:45.505049-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08T07:56:45.515292-07:00 bastion su[939]: (to root) root on pts/0
+    2025-11-08T07:56:45.518664-07:00 bastion su[939]: pam_unix(su:session): session opened for user root(uid=0) by jessie(uid=0)

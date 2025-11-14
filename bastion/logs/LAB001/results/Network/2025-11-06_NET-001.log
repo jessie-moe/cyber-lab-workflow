@@ -1,14 +1,14 @@
 | Field                  | Description                                                            |
 | ---------------------- | ---------------------------------------------------------------------- |
-| **Artifact ID:**       | OBS-LAB001-5                                                           |
+| **Artifact ID:**       | NET-001                                                                |
 | **Description:**       | ICMP Ping Test Results from Bastion Host                               |
-| **Related Lab:**       | LAB001 — *lab-initialization*                                          |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
 | **Date Analyzed:**     | 2025-11-12                                                             |
 | **Analyst:**           | Jessie Moe                                                             |
 | **Source System:**     | bastion                                                                |
 | **Primary Logs Used:** | 2025-11-08_ICMP_COMBINED.log                                           |
 | **Category:**          | Network | Connectivity                                                 |
-| **Severity:**          | Low |                                                                  | 
+| **Severity:**          | Low                                                                    | 
 
 
 --- 192.168.0.60 ping statistics ---

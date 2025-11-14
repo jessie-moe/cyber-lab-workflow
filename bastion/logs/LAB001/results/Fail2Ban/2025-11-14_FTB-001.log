@@ -1,0 +1,17 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | FTB-001                                                                |
+| **Description:**       | Analysis - Fail 2 ban log entries                                      |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion  						                                      |
+| **Primary Logs Used:** | fail2ban.log | rsyslog.log | auth.log                                  |
+| **Category:**          | Accounts | Authentication | System                                     |
+| **Severity:**          | Critical                                                               |
+
+
+**Note** pull fail2ban logs to analyze banned IPs and potential brute force attacks on SSH service.
+
+grep -n -E 'fail2ban|Ban|Unban' fail2ban.log
+ search for unusal activity or anomalies that could indicate fail2ban actions

@@ -1,0 +1,93 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | PAC-001                                                                |
+| **Description:**       | Package Installation Results from Bastion Host                         |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion                                                                |
+| **Primary Logs Used:** | 2025-11-08_PACKAGE_INSTALLS.log                                        |
+| **Category:**          | Package Installation                                                   |
+| **Severity:**          | Low                                                                    | 
+
+
+
+
+grep -a -E 'installed|openssh|ssh|sshd|fail2ban|auditd|nftables|lynis' ../../archive/raw_untagged/2025-11-08_apt_term.log 
+    (Reading database ... 7799 files and directories currently installed.)
+    (Reading database ... 8473 files and directories currently installed.)
+    (Reading database ... 8485 files and directories currently installed.)
+    (Reading database ... 8508 files and directories currently installed.)
+    (Reading database ... 8649 files and directories currently installed.)
+    (Reading database ... 14265 files and directories currently installed.)
+    (Reading database ... 14291 files and directories currently installed.)
+    (Reading database ... 14311 files and directories currently installed.)
+    (Reading database ... 14319 files and directories currently installed.)
+    (Reading database ... 14710 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 15660 files and directories currently installed.)
+    (Reading database ... 20857 files and directories currently installed.)
+    (Reading database ... 20862 files and directories currently installed.)
+    (Reading database ... 20876 files and directories currently installed.)
+    (Reading database ... 20876 files and directories currently installed.)
+    (Reading database ... 21017 files and directories currently installed.)
+    Selecting previously unselected package openssh-client.
+    Preparing to unpack .../09-openssh-client_10.0p1-7_amd64.deb ...
+    Unpacking openssh-client (1:10.0p1-7) ...
+    Selecting previously unselected package openssh-sftp-server.
+    Preparing to unpack .../10-openssh-sftp-server_10.0p1-7_amd64.deb ...
+    Unpacking openssh-sftp-server (1:10.0p1-7) ...
+    Selecting previously unselected package openssh-server.
+    Preparing to unpack .../15-openssh-server_10.0p1-7_amd64.deb ...
+    Unpacking openssh-server (1:10.0p1-7) ...
+    (Reading database ... 21575 files and directories currently installed.)
+    (Reading database ... 22033 files and directories currently installed.)
+    Selecting previously unselected package task-ssh-server.
+    Preparing to unpack .../109-task-ssh-server_3.81_all.deb ...
+    Unpacking task-ssh-server (3.81) ...
+    Setting up openssh-client (1:10.0p1-7) ...
+    Created symlink '/etc/systemd/user/sockets.target.wants/ssh-agent.socket' → '/usr/lib/systemd/user/ssh-agent.socket'.
+    Setting up openssh-sftp-server (1:10.0p1-7) ...
+    Setting up openssh-server (1:10.0p1-7) ...
+    Creating config file /etc/ssh/sshd_config with new version
+    Creating user 'sshd' (sshd user) with UID 989 and GID 65534.
+    runit: ssh: start action denied by policy-rc.d
+    Created symlink '/etc/systemd/system/sshd.service' → '/usr/lib/systemd/system/ssh.service'.
+    Created symlink '/etc/systemd/system/multi-user.target.wants/ssh.service' → '/usr/lib/systemd/system/ssh.service'.
+    Created symlink '/etc/systemd/system/ssh.service.wants/sshd-keygen.service' → '/usr/lib/systemd/system/sshd-keygen.service'.
+    Created symlink '/etc/systemd/system/sshd.service.wants/sshd-keygen.service' → '/usr/lib/systemd/system/sshd-keygen.service'.
+    Created symlink '/etc/systemd/system/sshd@.service.wants/sshd-keygen.service' → '/usr/lib/systemd/system/sshd-keygen.service'.
+    Created symlink '/etc/systemd/system/ssh.socket.wants/sshd-keygen.service' → '/usr/lib/systemd/system/sshd-keygen.service'.
+    Setting up task-ssh-server (3.81) ...
+    (Reading database ... 35343 files and directories currently installed.)
+    (Reading database ... 35605 files and directories currently installed.)
+    (Reading database ... 35950 files and directories currently installed.)
+    (Reading database ... 36093 files and directories currently installed.)
+    (Reading database ... 36240 files and directories currently installed.)
+    Selecting previously unselected package auditd.
+    Preparing to unpack .../01-auditd_1%3a4.0.2-2+b2_amd64.deb ...
+    Unpacking auditd (1:4.0.2-2+b2) ...
+    Selecting previously unselected package fail2ban.
+    Preparing to unpack .../03-fail2ban_1.1.0-8_all.deb ...
+    Unpacking fail2ban (1.1.0-8) ...
+    Selecting previously unselected package lynis.
+    Preparing to unpack .../07-lynis_3.1.4-1_all.deb ...
+    Unpacking lynis (3.1.4-1) ...
+    Setting up lynis (3.1.4-1) ...
+    Created symlink '/etc/systemd/system/timers.target.wants/lynis.timer' → '/usr/lib/systemd/system/lynis.timer'.
+    lynis.service is a disabled or a static unit, not starting it.
+    Setting up auditd (1:4.0.2-2+b2) ...
+    Created symlink '/etc/systemd/system/multi-user.target.wants/auditd.service' → '/usr/lib/systemd/system/auditd.service'.
+    Setting up fail2ban (1.1.0-8) ...
+    Created symlink '/etc/systemd/system/multi-user.target.wants/fail2ban.service' → '/usr/lib/systemd/system/fail2ban.service'.
+
+grep -i -E 'installed|openssh|ssh|sshd|fail2ban|auditd|nftables|lynis' ../../archive/raw_untagged/2025-11-08_apt-history.log 
+    Commandline: apt-get -o APT::Status-Fd=4 -o APT::Keep-Fds::=5 -o APT::Keep-Fds::=6 -q -y -o APT::Install-Recommends=true -o APT::Get::AutomaticRemove=true -o Acquire::Retries=3 install task-english task-ssh-server task-laptop ca-certificates libnss-systemd wget doc-debian bind9-dnsutils libpam-systemd gettext-base openssh-client ucf lsof file systemd-timesyncd wtmpdb manpages util-linux-extra media-types krb5-locales dbus bash-completion liblockfile-bin apt-listchanges traceroute netcat-traditional bind9-host wamerican ncurses-term xz-utils bzip2 groff-base reportbug inetutils-telnet debian-faq man-db perl
+    Install: reportbug:amd64 (13.2.0), lsb-release:amd64 (12.1-1, automatic), libpam-wtmpdb:amd64 (0.73.0-3, automatic), libperl5.40:amd64 (5.40.1-6, automatic), libwrap0:amd64 (7.6.q-36, automatic), krb5-locales:amd64 (1.21.3-5), python3.13:amd64 (3.13.5-2, automatic), bind9-host:amd64 (1:9.20.15-1~deb13u1), libffi8:amd64 (3.4.8-2, automatic), libnghttp2-14:amd64 (1.64.0-1.1, automatic), openssh-client:amd64 (1:10.0p1-7), libnl-3-200:amd64 (3.7.0-2, automatic), libnl-genl-3-200:amd64 (3.7.0-2, automatic), util-linux-locales:amd64 (2.41-5, automatic), dbus-user-session:amd64 (1.16.2-2, automatic), libgdbm-compat4t64:amd64 (1.24-2, automatic), wpasupplicant:amd64 (2:2.10-24, automatic), systemd-timesyncd:amd64 (257.8-1~deb13u2), perl:amd64 (5.40.1-6), libmagic-mgc:amd64 (1:5.46-5, automatic), libtasn1-6:amd64 (4.20.0-2, automatic), python3-minimal:amd64 (3.13.5-1, automatic), libpam-systemd:amd64 (257.8-1~deb13u2), libnl-route-3-200:amd64 (3.7.0-2, automatic), libiw30t64:amd64 (30~pre9-18+b1, automatic), ucf:amd64 (3.0052), libpsl5t64:amd64 (0.21.2-1.1+b1, automatic), libexpat1:amd64 (2.7.1-2, automatic), bluetooth:amd64 (5.82-1.1, automatic), libp11-kit0:amd64 (0.25.5-3, automatic), libcbor0.10:amd64 (0.10.2-2, automatic), libxmuu1:amd64 (2:1.1.3-3+b4, automatic), libpython3.13-stdlib:amd64 (3.13.5-2, automatic), python3-reportbug:amd64 (13.2.0, automatic), python3-debianbts:amd64 (4.1.1, automatic), libfido2-1:amd64 (1.15.0-1+b1, automatic), alsa-ucm-conf:amd64 (1.2.14-1, automatic), dbus-daemon:amd64 (1.16.2-2, automatic), wireless-tools:amd64 (30~pre9-18+b1, automatic), ibritish:amd64 (3.4.06-1, automatic), liburcu8t64:amd64 (0.15.2-2, automatic), libxau6:amd64 (1:1.0.11-1, automatic), emacsen-common:amd64 (3.0.8, automatic), file:amd64 (1:5.46-5), bzip2:amd64 (1.0.8-6), python3-requests:amd64 (2.32.3+dfsg-5, automatic), libpipeline1:amd64 (1.5.8-1, automatic), libnss-systemd:amd64 (257.8-1~deb13u2), libxcb1:amd64 (1.17.0-2+b1, automatic), liblockfile-bin:amd64 (1.17-2), iamerican:amd64 (3.4.06-1, automatic), python3:amd64 (3.13.5-1, automatic), openssh-server:amd64 (1:10.0p1-7, automatic), libdbus-1-3:amd64 (1.16.2-2, automatic), wireless-regdb:amd64 (2025.07.10-1, automatic), python3-urllib3:amd64 (2.3.0-3, automatic), runit-helper:amd64 (2.16.4, automatic), dbus-bin:amd64 (1.16.2-2, automatic), task-english:amd64 (3.81), libpython3.13-minimal:amd64 (3.13.5-2, automatic), netcat-traditional:amd64 (1.10-50), libgdbm6t64:amd64 (1.24-2, automatic), libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u1, automatic), xz-utils:amd64 (5.8.1-1), libglib2.0-data:amd64 (2.84.4-3~deb13u1, automatic), python-apt-common:amd64 (3.0.0, automatic), util-linux-extra:amd64 (2.41-5), wamerican:amd64 (2020.12.07-4), wget:amd64 (1.25.0-2), shared-mime-info:amd64 (2.4-5+b2, automatic), task-laptop:amd64 (3.81), libasound2t64:amd64 (1.2.14-1, automatic), gettext-base:amd64 (0.23.1-2), libmaxminddb0:amd64 (1.12.2-1, automatic), publicsuffix:amd64 (20250328.1952-0.1, automatic), libx11-data:amd64 (2:1.8.12-1, automatic), lsof:amd64 (4.99.4+dfsg-2), xdg-user-dirs:amd64 (0.18-2, automatic), libuchardet0:amd64 (0.0.8-1+b2, automatic), libuv1t64:amd64 (1.50.0-2, automatic), libprotobuf-c1:amd64 (1.5.1-1, automatic), xauth:amd64 (1:1.1.2-1.1, automatic), libpcsclite1:amd64 (2.3.3-1, automatic), manpages:amd64 (6.9.1-1), man-db:amd64 (2.13.1-1), dictionaries-common:amd64 (1.30.10, automatic), traceroute:amd64 (1:2.1.6-1), media-types:amd64 (13.0.0), inetutils-telnet:amd64 (2:2.6-3), bind9-dnsutils:amd64 (1:9.20.15-1~deb13u1), ienglish-common:amd64 (3.4.06-1, automatic), debian-faq:amd64 (12.2), ispell:amd64 (3.4.06-1, automatic), python3-apt:amd64 (3.0.0, automatic), python3-certifi:amd64 (2025.1.31+ds-1, automatic), libjemalloc2:amd64 (5.3.0-3, automatic), libjson-c5:amd64 (0.18+ds-1, automatic), task-ssh-server:amd64 (3.81), dbus-session-bus-common:amd64 (1.16.2-2, automatic), libasound2-data:amd64 (1.2.14-1, automatic), distro-info-data:amd64 (0.66, automatic), alsa-topology-conf:amd64 (1.2.5.1-3, automatic), ca-certificates:amd64 (20250419), libwtmpdb0:amd64 (0.73.0-3, automatic), libpython3-stdlib:amd64 (3.13.5-1, automatic), bash-completion:amd64 (1:2.16.0-7), libdw1t64:amd64 (0.192-4, automatic), openssh-sftp-server:amd64 (1:10.0p1-7, automatic), powertop:amd64 (2.15-4, automatic), anacron:amd64 (2.3-43, automatic), bind9-libs:amd64 (1:9.20.15-1~deb13u1, automatic), apt-listchanges:amd64 (4.8), python3.13-minimal:amd64 (3.13.5-2, automatic), liblmdb0:amd64 (0.9.31-1+b2, automatic), libxext6:amd64 (2:1.3.4-1+b3, automatic), doc-debian:amd64 (11.3+nmu1), libgnutls30t64:amd64 (3.8.9-3, automatic), wtmpdb:amd64 (0.73.0-3), iw:amd64 (6.9-1, automatic), python3-idna:amd64 (3.10-1, automatic), bluez:amd64 (5.82-1.1, automatic), python3-chardet:amd64 (5.2.0+dfsg-2, automatic), python3-debconf:amd64 (1.5.91, automatic), perl-modules-5.40:amd64 (5.40.1-6, automatic), libx11-6:amd64 (2:1.8.12-1, automatic), python3-charset-normalizer:amd64 (3.4.2-1, automatic), libmagic1t64:amd64 (1:5.46-5, automatic), groff-base:amd64 (1.23.0-9), dbus-system-bus-common:amd64 (1.16.2-2, automatic), ncurses-term:amd64 (6.5+20250216-2), dbus:amd64 (1.16.2-2), liblsof0:amd64 (4.99.4+dfsg-2, automatic), libfstrm0:amd64 (0.6.1-1+b3, automatic), bsdextrautils:amd64 (2.41-5, automatic), libxdmcp6:amd64 (1:1.1.5-1, automatic), libatomic1:amd64 (14.2.0-19, automatic), iso-codes:amd64 (4.18.0-1, automatic), openssl:amd64 (3.5.1-1+deb13u1, automatic), libglib2.0-0t64:amd64 (2.84.4-3~deb13u1, automatic), python3-debian:amd64 (1.0.1, automatic)
+    Commandline: apt install lynis nftables fail2ban auditd rsyslog
+    Install: python3-inflect:amd64 (7.3.1-2, automatic), libauparse0t64:amd64 (1:4.0.2-2+b2, automatic), python3-autocommand:amd64 (2.2.2-3, automatic), python3-jaraco.functools:amd64 (4.1.0-1, automatic), python3-pyasyncore:amd64 (1.0.2-3, automatic), python3-typing-extensions:amd64 (4.13.2-1, automatic), python3-jaraco.context:amd64 (6.0.1-1, automatic), fail2ban:amd64 (1.1.0-8), libfastjson4:amd64 (1.2304.0-2, automatic), python3-more-itertools:amd64 (10.7.0-1, automatic), python3-pkg-resources:amd64 (78.1.1-0.1, automatic), lynis:amd64 (3.1.4-1), python3-typeguard:amd64 (4.4.2-1, automatic), menu:amd64 (2.1.51, automatic), python3-pyinotify:amd64 (0.9.6-5, automatic), rsyslog:amd64 (8.2504.0-1), liblognorm5:amd64 (2.0.6-5, automatic), libestr0:amd64 (0.1.11-2, automatic), whois:amd64 (5.6.3, automatic), python3-setuptools:amd64 (78.1.1-0.1, automatic), auditd:amd64 (1:4.0.2-2+b2), python3-jaraco.text:amd64 (4.0.0-1, automatic), python3-zipp:amd64 (3.21.0-1, automatic), python3-systemd:amd64 (235-1+b6, automatic)
+                                                                                                                                                                                                                    

@@ -1,0 +1,101 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | LYN-002                                                                |
+| **Description:**       | Analysis Lynis SSH tests on bastion host                               |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion                                                                |
+| **Primary Logs Used:** | 2025-11-08_lynis.log | 2025-11-08_lynis-report.data.log                |
+| **Category:**          | Audit |																  |
+| **Severity:**          | Critical                                                               |
+--- 
+ grep -E 'ssh|sshd' 2025-11-08_lynis.log 2025-11-08_lynis-report.data.log 
+    2025-11-08_lynis.log:2025-11-08 08:07:22   Found known binary: ssh-keyscan (scanner for SSH keys) - /usr/bin/ssh-keyscan
+    2025-11-08_lynis.log:2025-11-08 08:07:22 Found /usr/sbin/sshd (version 10.0)
+    2025-11-08_lynis.log:2025-11-08 08:07:22 Result: set-gid binaries: /usr/bin/chage /usr/bin/crontab /usr/bin/dotlockfile /usr/bin/expiry /usr/bin/ssh-agent /usr/sbin/unix_chkpwd 
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-add
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-agent
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-argv0
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-copy-id
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-keygen
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /bin/ssh-keyscan
+    2025-11-08_lynis.log:2025-11-08 08:07:23 Binary: /sbin/sshd
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-add
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-agent
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-argv0
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-copy-id
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-keygen
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/bin/ssh-keyscan
+    2025-11-08_lynis.log:2025-11-08 08:07:24 Binary: /usr/sbin/sshd
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: found file ssh_host_ed25519_key.pub in /etc/ssh, using that as candidate to create hostid2
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Hash (ssh or machineid): 9ff3ce3f996df81853f929a1183a2599fa3a3b2db445b42b3c1d9a09b7b338bc
+    2025-11-08_lynis.log:2025-11-08 08:07:25 hostid2-generation: method ssh-public-key
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Found running service: ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Found enabled service at boot: ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Found enabled service at boot: sshd-keygen
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Test: checking permissions of file /etc/init.d/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: good, file /etc/init.d/ssh not world writable
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Action: checking symlink for file /etc/rc2.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Note: Using real readlink binary to determine symlink on /etc/rc2.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: readlink shows /etc/init.d/ssh as output
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: symlink found, pointing to file /etc/init.d/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: good, file /etc/rc2.d/S01ssh not world writable
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Action: checking symlink for file /etc/rc3.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Note: Using real readlink binary to determine symlink on /etc/rc3.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: readlink shows /etc/init.d/ssh as output
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: symlink found, pointing to file /etc/init.d/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: good, file /etc/rc3.d/S01ssh not world writable
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Action: checking symlink for file /etc/rc4.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Note: Using real readlink binary to determine symlink on /etc/rc4.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: readlink shows /etc/init.d/ssh as output
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: symlink found, pointing to file /etc/init.d/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:25 Result: good, file /etc/rc4.d/S01ssh not world writable
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Action: checking symlink for file /etc/rc5.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Note: Using real readlink binary to determine symlink on /etc/rc5.d/S01ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: readlink shows /etc/init.d/ssh as output
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: symlink found, pointing to file /etc/init.d/ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: good, file /etc/rc5.d/S01ssh not world writable
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: ssh.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: sshd@sshd-keygen.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:27 Found file: /etc/pam.d/sshd
+    2025-11-08_lynis.log:2025-11-08 08:07:29 Found package: openssh-client (version: 1:10.0p1-7)
+    2025-11-08_lynis.log:2025-11-08 08:07:29 Found package: openssh-server (version: 1:10.0p1-7)
+    2025-11-08_lynis.log:2025-11-08 08:07:29 Found package: openssh-sftp-server (version: 1:10.0p1-7)
+    2025-11-08_lynis.log:2025-11-08 08:07:29 Found package: task-ssh-server (version: 3.81)
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Checking permissions of /usr/share/lynis/include/tests_ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:32 IsRunning: process 'sshd' found (743 )
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Test: searching for sshd_config file
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Result: /etc/ssh/sshd_config exists
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Test: check if we can access /etc/ssh/sshd_config (escaped: /etc/ssh/sshd_config)
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Result: file /etc/ssh/sshd_config is readable (or directory accessible).
+    2025-11-08_lynis.log:2025-11-08 08:07:32 Result: using last found configuration file: /etc/ssh/sshd_config
+    2025-11-08_lynis.log:2025-11-08 08:07:38 Result: Unconfined process: unconfined:743:sshd
+    2025-11-08_lynis.log:2025-11-08 08:07:38 Result: service 'sshd' enabled
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Test: checking file/directory /etc/ssh/sshd_config
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Test: checking if file /etc/ssh/sshd_config has the permissions set to 600 (rw-------) or more restrictive
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Outcome: permissions of file /etc/ssh/sshd_config are not matching expected value (644 != 600)
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Test: checking file/directory /root/.ssh
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Test: checking if file /root/.ssh has the permissions set to 700 (rwx------) or more restrictive
+    2025-11-08_lynis.log:2025-11-08 08:07:39 Result: found home directory: /run/sshd (directory exists)
+    2025-11-08_lynis-report.data.log:binaries_sgid_count=/usr/bin/chage /usr/bin/crontab /usr/bin/dotlockfile /usr/bin/expiry /usr/bin/ssh-agent /usr/sbin/unix_chkpwd 
+    2025-11-08_lynis-report.data.log:running_service[]=ssh
+    2025-11-08_lynis-report.data.log:boot_service[]=ssh
+    2025-11-08_lynis-report.data.log:boot_service[]=sshd-keygen
+    2025-11-08_lynis-report.data.log:network_listen[]=raw,ss,v1|tcp|0.0.0.0:22|sshd|
+    2025-11-08_lynis-report.data.log:network_listen[]=raw,ss,v1|tcp|[::]:22|sshd|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option AllowTcpForwarding;field:AllowTcpForwarding;prefval:NO;value:YES;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option ClientAliveCountMax;field:ClientAliveCountMax;prefval:2;value:3;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option LogLevel;field:LogLevel;prefval:VERBOSE;value:INFO;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option MaxAuthTries;field:MaxAuthTries;prefval:3;value:6;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option MaxSessions;field:MaxSessions;prefval:2;value:10;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option Port;field:Port;prefval:;value:22;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option TCPKeepAlive;field:TCPKeepAlive;prefval:NO;value:YES;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option X11Forwarding;field:X11Forwarding;prefval:NO;value:YES;|
+    2025-11-08_lynis-report.data.log:details[]=SSH-7408|sshd|desc:sshd option AllowAgentForwarding;field:AllowAgentForwarding;prefval:NO;value:YES;|
+    2025-11-08_lynis-report.data.log:ssh_daemon_running=1
+    2025-11-08_lynis-report.data.log:openssh_daemon_running=1
+    2025-11-08_lynis-report.data.log:fail2ban_enabled_service[]=sshd
+    2025-11-08_lynis-report.data.log:home_directory[]=/run/sshd

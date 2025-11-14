@@ -1,16 +1,36 @@
 | Field                  | Description                                                            |
 | ---------------------- | ---------------------------------------------------------------------- |
-| **Artifact ID:**       | OBS-LAB001-1                                                           |
+| **Artifact ID:**       | LYN-001                                                           |
 | **Description:**       | Lynis hardening Index / Baseline Audit Run                             |
-| **Related Lab:**       | LAB001 — *lab-initialization*                                          |
-| **Date Analyzed:**     | 2025-11-12                                                             |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                          |
+| **Date Analyzed:**     | 2025-11-14                                                             |
 | **Analyst:**           | Jessie Moe                                                             |
-| **Source System:**     | bastion |						                                      |
+| **Source System:**     | bastion 						                                          |
 | **Primary Logs Used:** | 2025-11-08_lynis.log | 2025-11-08_journalctl.log                       |
 | **Category:**          | Audit |																  |
-| **Severity:**          | Critical	|					                                          |
+| **Severity:**          | Critical						                                          |
 
 2025-11-08 08:07:40 Hardening index : [65] [#############       ]
+
+grep -E 'UNSAFE' 2025-11-08_lynis.log 2025-11-08_lynis-report.data.log
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: anacron.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: cron.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: dbus.service has exposure value 9.3 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: emergency.service has exposure value 9.5 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: fail2ban.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: getty@tty1.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: ifup@enp0s3.service has exposure value 9.5 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: lynis.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: rc-local.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: rescue.service has exposure value 9.5 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: ssh.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: sshd@sshd-keygen.service has exposure value 9.6 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: systemd-ask-password-console.service has exposure value 9.4 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: systemd-ask-password-wall.service has exposure value 9.4 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: systemd-bsod.service has exposure value 9.5 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: systemd-initctl.service has exposure value 9.4 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: user@1000.service has exposure value 9.4 with predicate 'UNSAFE'
+    2025-11-08_lynis.log:2025-11-08 08:07:26 Result: wpa_supplicant.service has exposure value 9.6 with predicate 'UNSAFE'
 
 hardening_index=65
 Nov 06 15:03:16 bastion sudo[1423]:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/bin/apt install lynis nftables fail2ban auditd rsyslog

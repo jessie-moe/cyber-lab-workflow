@@ -1,0 +1,17 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | CRN-001                                                                |
+| **Description:**       | Analysis - Cron job log entries                                        |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion  						                                      |
+| **Primary Logs Used:** | cron.log | rsyslog.log | auth.log                                      |
+| **Category:**          | Accounts | Authentication | System                                     |
+| **Severity:**          | Critical                                                               |
+
+
+**Note** pull cron logs to analyze scheduled tasks and potential unauthorized cron job executions.
+
+grep -n -E 'cron|CRON' cron.log
+ search for unusual activity or anomalies that could indicate cron job issues

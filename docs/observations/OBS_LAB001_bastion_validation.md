@@ -34,10 +34,14 @@
 ### 3.1 Artifacts / Validation 
 | Artifact              | Artifact # | Artifact Path      | Notes   | 
 |-----------------------|--------|------------------------|----------------------|
-| Lynis hardening Index / Baseline Audit Run | OBS-LAB001-1 | [Lynis001](/bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynis-score.log) | Successful Audit |
-| LynisSSH Audit | OBS-LAB001-2 | [Lynis002](/bastion/logs/LAB001/results/2025-11-10_LAB001-ANALYSIS-lynissSSH.log) | Critical Vulnerabilities found |
-| User Account Modification | OBS-LAB001-3 | [Users001](/bastion/logs/LAB001/results/2025-11-08_LAB001-ANALYSIS-accounts_modification.log)  | Authorized Activity |
-| System Modification | OBS-LAB001-3 | [System](/bastion/logs/LAB001/results/2025-11-12_LAB001-ANALYSIS-System_modifications.log) | File operations |
+| Lynis hardening Index / Baseline Audit Run | LYN-001 | [LYN-001](/bastion/logs/LAB001/results/Lynis/2025-11-10_LYN_001.log) | Successful Audit |
+| LynisSSH Audit | LYN-002 | [LYN-002](/bastion/logs/LAB001/results/Lynis/2025-11-10_LYN_002.log) | Critical Vulnerabilities found |
+| User Account Authentication | AUTH-001 | [AUTH-001](/bastion/logs/LAB001/results/Authentication/2025-11-13_AUTH_001.log)  | Authorized Activity |
+| User Account Modification | ACT-001 | [ACT-001](/bastion/logs/LAB001/results/User-System-AccountChanges/2025-11-08_ACT-001.log) | |
+| Privelage Escalation | SUD-001 | [SUD-001](/bastion/logs/LAB001/results/sudoUsage/2025-11-14_SUD-001.log) | |
+| Package Install | PAC-001 | [PAC-001](/bastion/logs/LAB001/results/PackageInstalls/2025-11-14_PAC_001.log) | Confirmed |
+| Service Control | SVC-001 | [SVC-001](/bastion/logs/LAB001/results/Systemd-ServiceControl/2025-11-12_SVC-001.log) | Critical: wpa_supplicant.service active |
+|
 
 
 ---
@@ -56,22 +60,24 @@
  | System | Account Activity | File Deletion | Observed user `jessie`' modify and export files / directories using USB device| ⚠️ | Files detected being deleted during log transfer |
  | System | Account Activity | File Export | Observed user `jessie`' modify and export files / directories using USB device| ⚠️ | Improper mv of files resulting in permission errors |
  |Audit | System Audit-Lynis | Index score: < 70 | Index score: 65 | ✅ | Baseline audit confirms need to mitigate and harden SSH services |
+ | Service | wpa_supplicant | Disabled | Enabled | 🟥 | Mitigate ASAP 
 
 ### Follow Up on Warnings
 - [X] Verify the need of an additional aptuser account - aptuser will facilitate _apt system user in repository cache.
 - [X] Verify user file/folder creation and deletions - Improper commands and file manipulation resulted in flagged actions.
 - [X] Verify export of Log files - Logs exported due to SSHFS and log forwarding not established.
 - [X] Accounts requested created
+- [X] Foward critical errors / observasations for mitigation
 
 
 ⚠️***In progess***⚠️
  - [x] Pull network/interfaces config file
- - [x] Place all files in necessary folders
+ - [ ] Place all files in necessary folders
  - [ ] Review Logs for additional Findings
  - [ ] Add all Log paths and findings
- - [X] verify links
+ - [ ] verify links
 
  
 
  ✅ **Maintained by:** Jessie Moe  
-📆 **Last Updated:** 2025-11-12
+📆 **Last Updated:** 2025-11-13

@@ -1,0 +1,73 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | ACT-001                                                           |
+| **Description:**       | Analysis of user account modifications on bastion host                 |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                          |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion  						                                      |
+| **Primary Logs Used:** | 2025-11-08_journalctl.log|2025-11-08_auth.log|2025-11-08_accounts.log  |
+| **Category:**          | Accounts | Authentication | System                                     |
+| **Severity:**          | Medium                                                              |
+
+grep -a -C2 -E 'useradd|adduser|usermod|userdel|passwd:|chpasswd' 2025-11-08_auth.log 2025-11-08_journalctl.log
+    2025-11-08_auth.log-2025-11-07T15:30:01.058411-07:00 bastion CRON[34573]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+    2025-11-08_auth.log-2025-11-07T15:30:01.062519-07:00 bastion CRON[34573]: pam_unix(cron:session): session closed for user root
+    2025-11-08_auth.log:2025-11-07T15:30:19.621556-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/grep -E 'useradd|groupadd|adduser|group added|new_user' /var/log/auth.log
+    2025-11-08_auth.log-2025-11-07T15:30:19.627669-07:00 bastion sudo: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08_auth.log-2025-11-07T15:30:19.629843-07:00 bastion sudo: pam_unix(sudo:session): session closed for user root
+    --
+    2025-11-08_journalctl.log-Nov 06 14:43:56 bastion anacron[869]: Updated timestamp for job `cron.weekly' to 2025-11-06
+    2025-11-08_journalctl.log-Nov 06 14:43:56 bastion anacron[600]: Job `cron.weekly' terminated
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion sudo[872]:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/sbin/adduser gitops --shell /usr/sbin/nologin
+    2025-11-08_journalctl.log-Nov 06 14:48:11 bastion sudo[872]: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Adding user `gitops' ...
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Selecting UID/GID from range 1000 to 59999 ...
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Adding new group `gitops' (1001) ...
+    2025-11-08_journalctl.log-Nov 06 14:48:11 bastion groupadd[879]: group added to /etc/group: name=gitops, GID=1001
+    2025-11-08_journalctl.log-Nov 06 14:48:11 bastion groupadd[879]: group added to /etc/gshadow: name=gitops
+    2025-11-08_journalctl.log-Nov 06 14:48:11 bastion groupadd[879]: new group: name=gitops, GID=1001
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Adding new user `gitops' (1001) with group `gitops (1001)' ...
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion useradd[884]: new user: name=gitops, UID=1001, GID=1001, home=/home/gitops, shell=/usr/sbin/nologin, from=/dev/pts/0
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Creating home directory `/home/gitops' ...
+    2025-11-08_journalctl.log:Nov 06 14:48:11 bastion adduser[875]: Copying files from `/etc/skel' ...
+    2025-11-08_journalctl.log:Nov 06 14:48:52 bastion adduser[875]: `/bin/passwd gitops' failed with status 10. Continuing.
+    2025-11-08_journalctl.log:Nov 06 14:48:52 bastion adduser[875]: wrong password given or password retyped incorrectly
+    2025-11-08_journalctl.log-Nov 06 14:48:56 bastion systemd[1]: Starting systemd-tmpfiles-clean.service - Cleanup of Temporary Directories...
+    2025-11-08_journalctl.log-Nov 06 14:48:56 bastion systemd-tmpfiles[902]: /usr/lib/tmpfiles.d/legacy.conf:14: Duplicate line for path "/run/lock", ignoring.
+    --
+    2025-11-08_journalctl.log-Nov 06 14:48:56 bastion anacron[911]: Updated timestamp for job `cron.monthly' to 2025-11-06
+    2025-11-08_journalctl.log-Nov 06 14:48:56 bastion anacron[600]: Job `cron.monthly' terminated
+    2025-11-08_journalctl.log:Nov 06 14:49:03 bastion passwd[899]: pam_unix(passwd:chauthtok): password changed for gitops
+    2025-11-08_journalctl.log-Nov 06 14:49:10 bastion chfn[913]: changed user 'gitops' information
+    2025-11-08_journalctl.log:Nov 06 14:49:13 bastion adduser[875]: Adding new user `gitops' to supplemental / extra groups `users' ...
+    2025-11-08_journalctl.log:Nov 06 14:49:13 bastion adduser[875]: Adding user `gitops' to group `users' ...
+    2025-11-08_journalctl.log-Nov 06 14:49:13 bastion gpasswd[920]: members of group users set by root to jessie,gitops
+    2025-11-08_journalctl.log-Nov 06 14:49:13 bastion sudo[872]: pam_unix(sudo:session): session closed for user root
+    --
+    2025-11-08_journalctl.log-Nov 06 14:59:04 bastion unix_chkpwd[978]: password check failed for user (jessie)
+    2025-11-08_journalctl.log-Nov 06 14:59:04 bastion sudo[976]: pam_unix(sudo:auth): authentication failure; logname=jessie uid=1000 euid=0 tty=/dev/pts/0 ruser=jessie rhost=  user=jessie
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion sudo[976]:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/sbin/adduser aptuser
+    2025-11-08_journalctl.log-Nov 06 14:59:10 bastion sudo[976]: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Adding user `aptuser' ...
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Selecting UID/GID from range 1000 to 59999 ...
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Adding new group `aptuser' (1002) ...
+    2025-11-08_journalctl.log-Nov 06 14:59:10 bastion groupadd[987]: group added to /etc/group: name=aptuser, GID=1002
+    2025-11-08_journalctl.log-Nov 06 14:59:10 bastion groupadd[987]: group added to /etc/gshadow: name=aptuser
+    2025-11-08_journalctl.log-Nov 06 14:59:10 bastion groupadd[987]: new group: name=aptuser, GID=1002
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Adding new user `aptuser' (1002) with group `aptuser (1002)' ...
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion useradd[992]: new user: name=aptuser, UID=1002, GID=1002, home=/home/aptuser, shell=/bin/bash, from=/dev/pts/1
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Creating home directory `/home/aptuser' ...
+    2025-11-08_journalctl.log:Nov 06 14:59:10 bastion adduser[983]: Copying files from `/etc/skel' ...
+    2025-11-08_journalctl.log:Nov 06 14:59:31 bastion passwd[1001]: pam_unix(passwd:chauthtok): password changed for aptuser
+    2025-11-08_journalctl.log-Nov 06 14:59:36 bastion chfn[1005]: changed user 'aptuser' information
+    2025-11-08_journalctl.log:Nov 06 14:59:38 bastion adduser[983]: Adding new user `aptuser' to supplemental / extra groups `users' ...
+    2025-11-08_journalctl.log:Nov 06 14:59:38 bastion adduser[983]: Adding user `aptuser' to group `users' ...
+    2025-11-08_journalctl.log-Nov 06 14:59:38 bastion gpasswd[1012]: members of group users set by root to jessie,gitops,aptuser
+    2025-11-08_journalctl.log-Nov 06 14:59:38 bastion sudo[976]: pam_unix(sudo:session): session closed for user root
+    --
+    2025-11-08_journalctl.log-Nov 07 15:30:01 bastion CRON[34575]: (root) CMD (if [ -x /etc/init.d/anacron ] && ! [ -d /run/systemd/system ]; then exec /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)
+    2025-11-08_journalctl.log-Nov 07 15:30:01 bastion CRON[34573]: pam_unix(cron:session): session closed for user root
+    2025-11-08_journalctl.log:Nov 07 15:30:19 bastion sudo[34577]:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/grep -E 'useradd|groupadd|adduser|group added|new_user' /var/log/auth.log
+    2025-11-08_journalctl.log-Nov 07 15:30:19 bastion sudo[34577]: pam_unix(sudo:session): session opened for user root(uid=0) by jessie(uid=1000)
+    2025-11-08_journalctl.log-Nov 07 15:30:19 bastion sudo[34577]: pam_unix(sudo:session): session closed for user root

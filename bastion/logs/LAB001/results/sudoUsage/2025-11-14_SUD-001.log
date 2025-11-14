@@ -1,0 +1,69 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | SUD-001                                                                |
+| **Description:**       | Analysis - Sudo command usage on bastion host                          |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion  						                                      |
+| **Primary Logs Used:** | 2025-11-08_journalctl.log|2025-11-08_auth.log|                         |
+| **Category:**          | Accounts | Authentication | System                                     |
+| **Severity:**          | High                                                                  |
+
+grep -a -E 'sudo' | grep -a -E 'COMMAND' 2025-11-08_auth.log 
+2025-11-06T15:04:16.071134-07:00 bastion sudo:   jessie : TTY=pts/0 ; PWD=/home/gitops/.ssh ; USER=root ; COMMAND=/usr/bin/apt install openssh-server -y
+2025-11-06T15:50:51.139154-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/nano /etc/networking/interfaces
+2025-11-06T15:51:25.222257-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/nano /etc/network/interfaces
+2025-11-06T15:55:54.806784-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/systemctl restart networking
+2025-11-06T16:56:33.825978-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+2025-11-07T14:57:12.848378-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/ ; USER=root ; COMMAND=/usr/bin/mkdir /media/usb-drive
+2025-11-07T14:58:37.633803-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb1 /media/usb-drive
+2025-11-07T14:59:10.002041-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/tail dmesg
+2025-11-07T14:59:38.812941-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb/sdb1 /media/usb-drive
+2025-11-07T14:59:44.965282-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb1 /media/usb-drive
+2025-11-07T15:01:11.892801-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb1 /cdrom0
+2025-11-07T15:01:23.948843-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount /sdb /cdrom0
+2025-11-07T15:01:33.045499-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb /cdrom0
+2025-11-07T15:01:36.426657-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/mount sdb1 /cdrom0
+2025-11-07T15:02:31.442678-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount /sdb /mnt
+2025-11-07T15:04:29.327753-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount dev/sdb1 /media/usb-drive
+2025-11-07T15:04:39.772442-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount dev/sdb /media/usb-drive
+2025-11-07T15:06:20.196509-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/sbin/blkid /dev/sdb1
+2025-11-07T15:08:38.010364-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/mnt ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb-drive -o uid=jessie,gid=jessie,utf8,dmask=027,fmask=137
+2025-11-07T15:15:49.205261-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/sbin/lynis audit system
+2025-11-07T15:17:56.928091-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv lynis*.* /home/jessie/Documents
+2025-11-07T15:18:44.808289-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var ; USER=root ; COMMAND=/usr/bin/mv /var/log/lynis.log /var/log/lynis-report.dat /home/jessie/Documents
+2025-11-07T15:22:50.902356-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log/apt ; USER=root ; COMMAND=/usr/bin/cat history.log
+2025-11-07T15:23:15.371885-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log/apt ; USER=root ; COMMAND=/usr/bin/cat term.log
+2025-11-07T15:30:19.621556-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/grep -E 'useradd|groupadd|adduser|group added|new_user' /var/log/auth.log
+2025-11-07T15:31:39.734374-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/cat auth.log
+2025-11-07T15:33:45.372160-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --since '2 days ago' --until yesterday
+2025-11-07T15:34:04.208124-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --until yesterday
+2025-11-07T15:35:30.583392-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/journalctl --since yesterday
+2025-11-07T15:37:47.147303-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/find /home/jessie/Documents -type f -exec sha256sum {} +
+2025-11-07T15:42:07.295683-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/var/log ; USER=root ; COMMAND=/usr/bin/mv /home/jessie/Documents/lynis.log /home/jessie/Documents/lynis-report.dat /media/usb-drive/logs
+2025-11-07T15:45:35.566511-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/umount usb-drive
+2025-11-07T15:46:53.057028-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/bin/umount /media
+2025-11-07T15:47:43.530742-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/sbin/shutdown -i
+2025-11-07T15:47:48.925829-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media ; USER=root ; COMMAND=/usr/sbin/shutdown -f
+2025-11-08T07:21:31.447619-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Temporary ; USER=root ; COMMAND=/usr/bin/mount /dev/sdb1 -vfat /media/usb-drive
+2025-11-08T07:26:48.644896-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb
+2025-11-08T07:27:00.174544-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/mount -t vfat /dev/sdb1 /media/usb-drive
+2025-11-08T07:33:40.161388-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history apt-term}.log
+2025-11-08T07:34:20.525170-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history}{apt-term}.log
+2025-11-08T07:34:56.973612-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm -rf 2025-11-06-{apt-history}{apt-term}.log apt-term}.log
+2025-11-08T07:35:31.378813-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06-{apt-history.log apt-term.log}
+2025-11-08T07:36:39.504567-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm 2025-11-06-{apt-history.log apt-term.log}
+2025-11-08T07:37:02.187705-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch apt-hitory.log
+2025-11-08T07:37:34.492383-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm apt-hitory.log
+2025-11-08T07:38:11.325465-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm *.*
+2025-11-08T07:38:50.531917-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/rm 2025-11-06-{apt-history
+2025-11-08T07:40:17.448865-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06apt-history.log 2025-11-06apt-term.log
+2025-11-08T07:41:32.041012-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-history.log 2025-11-06_apt-history.log
+2025-11-08T07:41:46.621372-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-history.log 2025-11-06_apt-term.log
+2025-11-08T07:41:57.436897-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/mv 2025-11-06apt-term.log 2025-11-06_apt-term.log
+2025-11-08T07:45:48.665753-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06_journalctl.log 2025-11-06_lynis.log.log 2025-11-06_lynis.dat.log 2025-11-06_auth.log
+2025-11-08T07:47:46.210883-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/media/usb-drive/logs ; USER=root ; COMMAND=/usr/bin/touch 2025-11-06_users.log
+2025-11-08T07:52:16.857074-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents ; USER=root ; COMMAND=/usr/bin/cat test /media/usb-drive/logs/2025-11-06_auth.log
+2025-11-08T07:54:37.675842-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents ; USER=root ; COMMAND=/usr/bin/mv /media/usb-drive/logs /home/jessie/Documents/
+2025-11-08T07:56:45.504092-07:00 bastion sudo:   jessie : TTY=tty1 ; PWD=/home/jessie/Documents/logs ; USER=root ; COMMAND=/usr/bin/sudo mv 2025-11-06_auth.log /home/jessie/Documents/logs/2025-11-08_auth.log

@@ -1,0 +1,324 @@
+| Field                  | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| **Artifact ID:**       | SVC-001                                                                |
+| **Description:**       | Analysis of system  service activity on bastion host                   |
+| **Related Lab:**       | LAB001 | OBS-LAB001                                                    |
+| **Date Analyzed:**     | 2025-11-14                                                             |
+| **Analyst:**           | Jessie Moe                                                             |
+| **Source System:**     | bastion                                                                |
+| **Primary Logs Used:** | 2025-11-08_journalctl.log | bastion_2025-11-11_systemctl.running.log   |
+| **Category:**          | Account | File | System  | Services                                    |
+| **Severity:**          | CRITICAL                                                                    | 
+
+###  Analysis Details
+ ***CRITICAL NOTE:*** 
+    wpa_supplicant.service is observed running.
+    wpa_Supplicant is an unnecessary service on a bastion host and introduces potential attack vectors.
+
+cat /2025-11-12_SVC-001.log
+  UNIT                      LOAD   ACTIVE SUB     DESCRIPTION
+  anacron.service           loaded active running Run anacron jobs
+  auditd.service            loaded active running Security Audit Logging Service
+  cron.service              loaded active running Regular background program processing daemon
+  dbus.service              loaded active running D-Bus System Message Bus
+  fail2ban.service          loaded active running Fail2Ban Service
+  getty@tty1.service        loaded active running Getty on tty1
+  rsyslog.service           loaded active running System Logging Service
+  ssh.service               loaded active running OpenBSD Secure Shell server
+  systemd-journald.service  loaded active running Journal Service
+  systemd-logind.service    loaded active running User Login Management
+  systemd-timesyncd.service loaded active running Network Time Synchronization
+  systemd-udevd.service     loaded active running Rule-based Manager for Device Events and Files
+  user@1000.service         loaded active running User Manager for UID 1000
+  wpa_supplicant.service    loaded active running WPA supplicant
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+14 loaded units listed.
+
+grep -n -E 'systemctl|Started|Stopped|Restarted|Failed' 2025-11-08_journalctl.log                                                       
+    457:Nov 06 14:33:54 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    458:Nov 06 14:33:54 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    522:Nov 06 14:33:54 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    537:Nov 06 14:33:54 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    624:Nov 06 14:33:55 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    653:Nov 06 14:33:56 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    654:Nov 06 14:33:56 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    655:Nov 06 14:33:56 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    656:Nov 06 14:33:56 bastion systemd[1]: Started apt-listchanges.timer - Try hourly to initialize apt-listchanges database for APT.
+    657:Nov 06 14:33:56 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    658:Nov 06 14:33:56 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    659:Nov 06 14:33:56 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    660:Nov 06 14:33:56 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    661:Nov 06 14:33:56 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    662:Nov 06 14:33:56 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    670:Nov 06 14:33:56 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    675:Nov 06 14:33:56 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    676:Nov 06 14:33:56 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    695:Nov 06 14:33:56 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    704:Nov 06 14:33:56 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    709:Nov 06 14:33:56 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    724:Nov 06 14:33:56 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    738:Nov 06 14:33:56 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    774:Nov 06 14:34:10 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    775:Nov 06 14:34:10 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    776:Nov 06 14:34:10 bastion systemd[730]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    781:Nov 06 14:34:10 bastion systemd[730]: Started dbus.service - D-Bus User Message Bus.
+    905:Nov 06 15:00:09 bastion systemctl[1365]: Removed '/etc/systemd/system/timers.target.wants/apt-listchanges.timer'.
+    906:Nov 06 15:00:09 bastion systemd[1]: Reload requested from client PID 1365 ('systemctl') (unit apt-listchanges.service)...
+    910:Nov 06 15:00:09 bastion systemd[1]: Stopped apt-listchanges.timer - Try hourly to initialize apt-listchanges database for APT.
+    925:Nov 06 15:03:38 bastion systemd[1]: Reload requested from client PID 1748 ('systemctl') (unit session-1.scope)...
+    928:Nov 06 15:03:38 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    929:Nov 06 15:03:39 bastion systemd[1]: Reload requested from client PID 1859 ('systemctl') (unit session-1.scope)...
+    932:Nov 06 15:03:39 bastion systemd[1]: Reload requested from client PID 1900 ('systemctl') (unit session-1.scope)...
+    970:Nov 06 15:03:40 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    971:Nov 06 15:03:40 bastion systemd[1]: Reload requested from client PID 1977 ('systemctl') (unit session-1.scope)...
+    974:Nov 06 15:03:41 bastion systemd[1]: Reload requested from client PID 2014 ('systemctl') (unit session-1.scope)...
+    977:Nov 06 15:03:41 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    979:Nov 06 15:03:41 bastion systemd[1]: Reload requested from client PID 2079 ('systemctl') (unit session-1.scope)...
+    984:Nov 06 15:03:42 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    1472:Nov 06 15:21:00 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    1473:Nov 06 15:21:00 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    1547:Nov 06 15:21:00 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    1552:Nov 06 15:21:01 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    1661:Nov 06 15:21:02 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    1697:Nov 06 15:21:02 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    1700:Nov 06 15:21:02 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    1701:Nov 06 15:21:02 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    1702:Nov 06 15:21:02 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    1703:Nov 06 15:21:02 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    1704:Nov 06 15:21:02 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    1705:Nov 06 15:21:02 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    1706:Nov 06 15:21:02 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    1707:Nov 06 15:21:02 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    1708:Nov 06 15:21:02 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    1709:Nov 06 15:21:02 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    1717:Nov 06 15:21:02 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    1722:Nov 06 15:21:02 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    1723:Nov 06 15:21:02 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    1747:Nov 06 15:21:02 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    1750:Nov 06 15:21:02 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    1751:Nov 06 15:21:02 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    1766:Nov 06 15:21:02 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    1771:Nov 06 15:21:02 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    1783:Nov 06 15:21:02 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    1787:Nov 06 15:21:02 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    1836:Nov 06 15:21:52 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    1837:Nov 06 15:21:52 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    1838:Nov 06 15:21:52 bastion systemd[798]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    1843:Nov 06 15:21:52 bastion systemd[798]: Started dbus.service - D-Bus User Message Bus.
+    1847:Nov 06 15:33:51 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    1861:Nov 06 15:55:54 bastion sudo[867]:   jessie : TTY=tty1 ; PWD=/home/jessie ; USER=root ; COMMAND=/usr/bin/systemctl restart networking
+    1871:Nov 06 15:55:54 bastion systemd[1]: Stopped networking.service - Raise network interfaces.
+    2340:Nov 06 16:26:19 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    2341:Nov 06 16:26:19 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    2407:Nov 06 16:26:19 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    2419:Nov 06 16:26:19 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    2509:Nov 06 16:26:20 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    2566:Nov 06 16:26:20 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    2569:Nov 06 16:26:20 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    2570:Nov 06 16:26:20 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    2571:Nov 06 16:26:20 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    2572:Nov 06 16:26:20 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    2573:Nov 06 16:26:20 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    2574:Nov 06 16:26:20 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    2575:Nov 06 16:26:20 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    2576:Nov 06 16:26:20 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    2577:Nov 06 16:26:20 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    2578:Nov 06 16:26:20 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    2586:Nov 06 16:26:20 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    2591:Nov 06 16:26:20 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    2592:Nov 06 16:26:20 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    2608:Nov 06 16:26:21 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    2612:Nov 06 16:26:21 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    2621:Nov 06 16:26:21 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    2627:Nov 06 16:26:21 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    2629:Nov 06 16:26:21 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    2633:Nov 06 16:26:21 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    2637:Nov 06 16:26:21 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    2660:Nov 06 16:26:33 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    2661:Nov 06 16:26:33 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    2662:Nov 06 16:26:33 bastion systemd[772]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    2682:Nov 06 16:26:33 bastion systemd[772]: Started dbus.service - D-Bus User Message Bus.
+    3135:Nov 06 16:55:56 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    3136:Nov 06 16:55:56 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    3195:Nov 06 16:55:56 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    3214:Nov 06 16:55:56 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    3298:Nov 06 16:55:57 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    3361:Nov 06 16:55:57 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    3365:Nov 06 16:55:58 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    3366:Nov 06 16:55:58 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    3367:Nov 06 16:55:58 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    3368:Nov 06 16:55:58 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    3369:Nov 06 16:55:58 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    3370:Nov 06 16:55:58 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    3371:Nov 06 16:55:58 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    3372:Nov 06 16:55:58 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    3373:Nov 06 16:55:58 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    3374:Nov 06 16:55:58 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    3382:Nov 06 16:55:58 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    3387:Nov 06 16:55:58 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3388:Nov 06 16:55:58 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    3408:Nov 06 16:55:58 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    3409:Nov 06 16:55:58 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    3415:Nov 06 16:55:58 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    3423:Nov 06 16:55:58 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    3425:Nov 06 16:55:58 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    3429:Nov 06 16:55:58 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    3433:Nov 06 16:55:58 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    3457:Nov 06 16:56:10 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    3458:Nov 06 16:56:10 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    3459:Nov 06 16:56:10 bastion systemd[775]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    3464:Nov 06 16:56:10 bastion systemd[775]: Started dbus.service - D-Bus User Message Bus.
+    3470:Nov 06 16:58:04 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3484:Nov 06 17:34:45 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3494:Nov 06 18:30:45 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3504:Nov 06 19:31:05 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3514:Nov 06 20:34:45 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3524:Nov 06 21:30:45 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    3999:Nov 07 14:54:24 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    4000:Nov 07 14:54:24 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    4058:Nov 07 14:54:24 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    4078:Nov 07 14:54:24 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    4166:Nov 07 14:54:25 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    4226:Nov 07 14:54:25 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    4229:Nov 07 14:54:25 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    4230:Nov 07 14:54:25 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    4231:Nov 07 14:54:25 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    4232:Nov 07 14:54:25 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    4233:Nov 07 14:54:25 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    4234:Nov 07 14:54:25 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    4235:Nov 07 14:54:25 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    4236:Nov 07 14:54:25 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    4237:Nov 07 14:54:25 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    4238:Nov 07 14:54:25 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    4246:Nov 07 14:54:25 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    4251:Nov 07 14:54:25 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    4252:Nov 07 14:54:25 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    4274:Nov 07 14:54:25 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    4275:Nov 07 14:54:25 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    4280:Nov 07 14:54:25 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    4288:Nov 07 14:54:25 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    4290:Nov 07 14:54:25 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    4296:Nov 07 14:54:25 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    4299:Nov 07 14:54:25 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    4323:Nov 07 14:54:38 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    4324:Nov 07 14:54:38 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    4325:Nov 07 14:54:38 bastion systemd[814]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    4330:Nov 07 14:54:38 bastion systemd[814]: Started dbus.service - D-Bus User Message Bus.
+    4412:Nov 07 15:30:49 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    4458:Nov 07 15:48:49 bastion systemd[1]: Stopped target graphical.target - Graphical Interface.
+    4459:Nov 07 15:48:49 bastion systemd[1]: Stopped target multi-user.target - Multi-User System.
+    4460:Nov 07 15:48:49 bastion systemd[1]: Stopped target getty.target - Login Prompts.
+    4461:Nov 07 15:48:49 bastion systemd[1]: Stopped target sound.target - Sound Card.
+    4462:Nov 07 15:48:49 bastion systemd[1]: Stopped target ssh-access.target - SSH Access Available.
+    4463:Nov 07 15:48:49 bastion systemd[1]: Stopped target timers.target - Timer Units.
+    4465:Nov 07 15:48:49 bastion systemd[1]: Stopped anacron.timer - Trigger anacron every hour.
+    4467:Nov 07 15:48:49 bastion systemd[1]: Stopped apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    4469:Nov 07 15:48:49 bastion systemd[1]: Stopped apt-daily.timer - Daily apt download activities.
+    4471:Nov 07 15:48:49 bastion systemd[1]: Stopped dpkg-db-backup.timer - Daily dpkg database backup timer.
+    4473:Nov 07 15:48:49 bastion systemd[1]: Stopped e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    4475:Nov 07 15:48:49 bastion systemd[1]: Stopped fstrim.timer - Discard unused filesystem blocks once a week.
+    4477:Nov 07 15:48:49 bastion systemd[1]: Stopped logrotate.timer - Daily rotation of log files.
+    4479:Nov 07 15:48:49 bastion systemd[1]: Stopped lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    4481:Nov 07 15:48:49 bastion systemd[1]: Stopped man-db.timer - Daily man-db regeneration.
+    4483:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    4484:Nov 07 15:48:49 bastion systemd[1]: Stopped target time-set.target - System Time Set.
+    4493:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+    4496:Nov 07 15:48:49 bastion systemd[1]: Stopped cron.service - Regular background program processing daemon.
+    4498:Nov 07 15:48:49 bastion systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+    4501:Nov 07 15:48:49 bastion systemd[1]: Stopped rsyslog.service - System Logging Service.
+    4503:Nov 07 15:48:49 bastion systemd[1]: Stopped getty@tty1.service - Getty on tty1.
+    4505:Nov 07 15:48:49 bastion systemd[1]: Stopped session-1.scope - Session 1 of User jessie.
+    4512:Nov 07 15:48:49 bastion systemd[814]: Stopped target default.target - Main User Target.
+    4514:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-random-seed.service - Load/Save OS Random Seed.
+    4516:Nov 07 15:48:49 bastion systemd[1]: Stopped wtmpdb-update-boot.service - Write boot and shutdown times into wtmpdb.
+    4517:Nov 07 15:48:49 bastion systemd[814]: Stopped mpris-proxy.service - Bluetooth mpris proxy.
+    4520:Nov 07 15:48:49 bastion systemd[814]: Stopped dbus.service - D-Bus User Message Bus.
+    4522:Nov 07 15:48:49 bastion systemd[814]: Stopped target basic.target - Basic System.
+    4523:Nov 07 15:48:49 bastion systemd[814]: Stopped target paths.target - Paths.
+    4524:Nov 07 15:48:49 bastion systemd[814]: Stopped target sockets.target - Sockets.
+    4525:Nov 07 15:48:49 bastion systemd[814]: Stopped target timers.target - Timers.
+    4536:Nov 07 15:48:49 bastion systemd[1]: Stopped user@1000.service - User Manager for UID 1000.
+    4542:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-user-sessions.service - Permit User Sessions.
+    4543:Nov 07 15:48:49 bastion systemd[1]: Stopped target remote-fs.target - Remote File Systems.
+    4545:Nov 07 15:48:49 bastion systemd[1]: Stopped user-runtime-dir@1000.service - User Runtime Directory /run/user/1000.
+    4550:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-logind.service - User Login Management.
+    4553:Nov 07 15:48:49 bastion systemd[1]: Stopped fail2ban.service - Fail2Ban Service.
+    4555:Nov 07 15:48:49 bastion systemd[1]: Stopped target network.target - Network.
+    4559:Nov 07 15:48:49 bastion systemd[1]: Stopped wpa_supplicant.service - WPA supplicant.
+    4562:Nov 07 15:48:49 bastion systemd[1]: Stopped dbus.service - D-Bus System Message Bus.
+    4563:Nov 07 15:48:49 bastion systemd[1]: Stopped target basic.target - Basic System.
+    4564:Nov 07 15:48:49 bastion systemd[1]: Stopped target paths.target - Path Units.
+    4566:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    4568:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    4569:Nov 07 15:48:49 bastion systemd[1]: Stopped target slices.target - Slice Units.
+    4572:Nov 07 15:48:49 bastion systemd[1]: Stopped target sockets.target - Socket Units.
+    4583:Nov 07 15:48:49 bastion systemd[1]: Stopped target sysinit.target - System Initialization.
+    4588:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-binfmt.service - Set Up Additional Binary Formats.
+    4593:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-timesyncd.service - Network Time Synchronization.
+    4596:Nov 07 15:48:49 bastion systemd[1]: Stopped auditd.service - Security Audit Logging Service.
+    4598:Nov 07 15:48:49 bastion systemd[1]: Stopped systemd-tmpfiles-setup.service - Create System Files and Directories.
+    5068:Nov 08 07:17:16 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    5069:Nov 08 07:17:16 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    5143:Nov 08 07:17:16 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    5154:Nov 08 07:17:17 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    5236:Nov 08 07:17:17 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    5301:Nov 08 07:17:18 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    5305:Nov 08 07:17:18 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    5306:Nov 08 07:17:18 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    5307:Nov 08 07:17:18 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    5308:Nov 08 07:17:18 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    5309:Nov 08 07:17:18 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    5310:Nov 08 07:17:18 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    5311:Nov 08 07:17:18 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    5312:Nov 08 07:17:18 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    5313:Nov 08 07:17:18 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    5314:Nov 08 07:17:18 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    5322:Nov 08 07:17:18 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    5327:Nov 08 07:17:18 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    5328:Nov 08 07:17:18 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    5351:Nov 08 07:17:18 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    5353:Nov 08 07:17:18 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    5356:Nov 08 07:17:18 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    5366:Nov 08 07:17:18 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    5368:Nov 08 07:17:18 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    5372:Nov 08 07:17:18 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    5375:Nov 08 07:17:18 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    5404:Nov 08 07:17:54 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    5405:Nov 08 07:17:54 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    5406:Nov 08 07:17:54 bastion systemd[769]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    5411:Nov 08 07:17:54 bastion systemd[769]: Started dbus.service - D-Bus User Message Bus.
+    5884:Nov 08 07:25:22 bastion systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+    5885:Nov 08 07:25:22 bastion systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+    5954:Nov 08 07:25:22 bastion systemd[1]: Started systemd-journald.service - Journal Service.
+    5970:Nov 08 07:25:23 bastion systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+    6068:Nov 08 07:25:24 bastion systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+    6119:Nov 08 07:25:24 bastion systemd[1]: Started auditd.service - Security Audit Logging Service.
+    6122:Nov 08 07:25:24 bastion systemd[1]: Started anacron.timer - Trigger anacron every hour.
+    6123:Nov 08 07:25:24 bastion systemd[1]: Started apt-daily.timer - Daily apt download activities.
+    6124:Nov 08 07:25:24 bastion systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+    6125:Nov 08 07:25:24 bastion systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+    6126:Nov 08 07:25:24 bastion systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+    6127:Nov 08 07:25:24 bastion systemd[1]: Started fstrim.timer - Discard unused filesystem blocks once a week.
+    6128:Nov 08 07:25:24 bastion systemd[1]: Started logrotate.timer - Daily rotation of log files.
+    6129:Nov 08 07:25:24 bastion systemd[1]: Started lynis.timer - Daily timer for the Lynis security audit and vulnerability scanner.
+    6130:Nov 08 07:25:24 bastion systemd[1]: Started man-db.timer - Daily man-db regeneration.
+    6131:Nov 08 07:25:24 bastion systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+    6139:Nov 08 07:25:24 bastion systemd[1]: Started ifup@enp0s3.service - ifup for enp0s3.
+    6144:Nov 08 07:25:24 bastion systemd[1]: Started anacron.service - Run anacron jobs.
+    6145:Nov 08 07:25:24 bastion systemd[1]: Started cron.service - Regular background program processing daemon.
+    6165:Nov 08 07:25:24 bastion systemd[1]: Started systemd-logind.service - User Login Management.
+    6166:Nov 08 07:25:24 bastion systemd[1]: Started dbus.service - D-Bus System Message Bus.
+    6173:Nov 08 07:25:24 bastion systemd[1]: Started rsyslog.service - System Logging Service.
+    6180:Nov 08 07:25:24 bastion systemd[1]: Started wpa_supplicant.service - WPA supplicant.
+    6182:Nov 08 07:25:24 bastion systemd[1]: Started fail2ban.service - Fail2Ban Service.
+    6186:Nov 08 07:25:24 bastion systemd[1]: Started getty@tty1.service - Getty on tty1.
+    6190:Nov 08 07:25:24 bastion systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+    6213:Nov 08 07:25:31 bastion systemd[1]: Started user@1000.service - User Manager for UID 1000.
+    6214:Nov 08 07:25:31 bastion systemd[1]: Started session-1.scope - Session 1 of User jessie.
+    6215:Nov 08 07:25:31 bastion systemd[760]: Started mpris-proxy.service - Bluetooth mpris proxy.
+    6220:Nov 08 07:25:31 bastion systemd[760]: Started dbus.service - D-Bus User Message Bus.
+    6246:Nov 08 07:34:56 bastion systemd[1]: Started anacron.service - Run anacron jobs.
